@@ -241,7 +241,7 @@ are discussed below.
 5. Acknowledgements
 
 ### LaTeX
-   duh! 
+duh! 
 :  I expect if you plan to use this theme you will already have an installation of LaTeX either locally or via a cloud service such as <https://overleaf.com/>.
 
 ### Beamer
