@@ -241,7 +241,8 @@ are discussed below.
 5. Acknowledgements
 
 ### LaTeX
-:  duh! I expect if you plan to use this theme you will already have an installation of LaTeX either locally or via a cloud service such as <https://overleaf.com/>.
+   duh! 
+:  I expect if you plan to use this theme you will already have an installation of LaTeX either locally or via a cloud service such as <https://overleaf.com/>.
 
 ### Beamer
 Grey Wolf's Scout Beamer Theme is a third party Beamer theme. Beamer itself is part of the
