@@ -1,0 +1,403 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{About this template}
+\begin{frame}{About this template}
+\parbox{\textwidth}{This theme is called \alert{Grey Wolf's Scouts Beamer Theme}.
+It was created as a follow up to a quickly, thrown--together, slideshow--based quiz for our local scout group's Zoom session during the pandemic of 2020.}
+
+\parbox{\textwidth}{The theme attempts to replicate the \href{https://scoutsbrand.org.uk/}{Scout Brand Centre}'s PowerPoint template using something called \href{https://www.latex-project.org/}{\LaTeX{}}.}
+\end{frame}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}{Your licence to use this theme.}
+\tiny
+\parbox{\textwidth}{\LaTeX{} is \href{https://www.debian.org/intro/free}{free software}.
+It is licensed under \href{https://www.latex-project.org/lppl/}{LaTeX Project Public License} licence (LPPL). 
+Many documents, 
+\href{https://www.overleaf.com/gallery/tagged/presentation}{templates}, 
+\href{http://www.texfaq.org/FAQ-clsvpkg}{styles/packages}, 
+\href{http://www.texfaq.org/FAQ-clsvpkg}{classes} and 
+\href{http://tug.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf\#section.15}{beamer themes} 
+written for \LaTeX{} are released under free software licences like the LPPL or \href{https://www.gnu.org/licenses/gpl-3.0.en.html}{GPL}; much of the content is released under one or other of the \href{https://creativecommons.org/}{Creative Commons licences}.}
+ 
+\parbox{\textwidth}{The code I have written for the \alert{Grey Wolf's Scouts Beamer Theme} is hereby released under the GPLv3 licence (you are free to use any of my code provided here under the terms of that licence or any later version of the GPL at your descretion).
+Other components of this theme not written by me---for example, those provided by the \href{https://scoutsbrand.org.uk/}{Scout Brand Centre}---or derived from other free software---for example, the \hyperlink{font}{OS2v3 version of the Nunito Sans font}---carry their own copyright and licence terms.\footnote{See the theme's accompanying \href{file:LICENCE}{\tt LICENCE} and \href{file:README.md}{\tt README.md} files.}}
+
+\parbox{\textwidth}{Presentations consisting of your content and compiled with this theme are yours. The licences are concerened with the subsequent distribution of this software. The Scout Association's trademarks must however only be used in accordance with The Scout Association's regulations.}
+
+\parbox{\textwidth}{What follows are a few slides describing this theme and how to use it.}
+\end{frame}
+}
+
+\begin{frame}{The Font}
+\hypertarget{font}{}
+\small
+\parbox{\textwidth}{This theme contains a copy of the
+\href{https://fonts.google.com/specimen/Nunito+Sans}{Nunito-Sans}~font. 
+I have had to make modifications to its encoding to enable
+it to work in \LaTeX{}.
+This means the TrueType (TTF) files referenced by the template are not the original Nunito-Sans TTF files.
+There are few practical differences. However, to satisfy the Licence conditions of the font I have called the resulting font NunitoSansOS2v3 to distingush it as a derivative. Details are in the accompanying \href{file:texmf/fonts/truetype/NunitoSans/OS2v3/README.md}{\tt README.md} file. }
+
+\parbox{\textwidth}{You can find the font and accompanying files in the \href{file:texmf/fonts/}{\tt texmf/fonts/}
+and \href{file:texmf/tex/latex/psnfss/}{\tt texmf/tex/latex/psnfss/} directories.}
+\end{frame}
+
+\begin{frame}{Scout Brand Images}
+\hypertarget{brand}{}
+\scriptsize
+\parbox{\textwidth}{The scout brand images were obtained from the \href{https://scoutsbrand.org.uk/}{Scout Brand Centre} website under licence. The Scout brand images are registered trademarks\footnote{See the corresponding entry registered with the UK Intellectual Property Office: \href{https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00003310891}{UK00003310891}} and their use is further governed by Scouting policy.\footnote{See Protected Scout logos, names, badges and awards: \href{https://www.scouts.org.uk/por/14-other-matters/rule-147-protected-scout-logos-names-badges-and-awards/}{POR 147}}}
+
+\parbox{\textwidth}{Where possible I prefer to use vector graphics. The Scout Brand Centre provides various formats for the various logos. Some have margins; some are without margins. For consistany I have converted these into PDF files with RGB colourspace and without borders/margins. I rely on the theme to place the images at their correct location with suitable margins.}
+
+\parbox{\textwidth}{The brand related files are located in \href{file:texmf/tex/generic/images/Branding/}{\tt ./texmf/tex/generic/images/Branding/}}
+\end{frame}
+
+\begin{frame}{The Grey Wolf's Scout Beamer Theme files}
+\scriptsize
+\parbox{\textwidth}{In the remainder of this theme you'll find the usual \alert{beamertheme}: font, color, inner and outer {\tt .sty} files such as you might expect. You'll also find some \alert{beamerscouts} {\tt .sty} files which contain the various macros defined for the operation of the theme.}
+
+\parbox{\textwidth}{The Scout Branding PowerPoint template does not separate well into the inner and outer components like a normal a Beamer theme. Inner and outer themes, although present, may not work as expected. As such you should not assume that it will be possible to mix with other Beamer themes.}
+
+\parbox{\textwidth}{You enable this theme by adding the following line to your Beamer document's preamble: \alert{{\tt \textbackslash{}usetheme\{scouts\}}}. This loads {\tt beamercolorthemescouts.sty}, {\tt beamerfontthemescouts.sty}, {\tt beamerinnerthemescouts.sty} and {\tt beamerouterthemescouts.sty} as you might expect.  It also loads in the font setup package {\tt NunitoSansOS2v3}, and a number of locally defined packages {\tt beamerscoutschangecolours}, {\tt beamerscoutslogo}, {\tt beamerscoutsbgimage} and {\tt beamerscoutstwocolframe} which hold the larger macros defined for this theme. The macros are discussed in the following slides.}
+\end{frame}
+
+\section*{Macros}
+\subsection{In order of likely usefullness}
+\begin{frame}{\textbackslash{}changecolours}
+\scriptsize
+\parbox{\textwidth}{This macro sets up all the colours and logos for the subsequent frames/slides. As is usually the case in Beamer, for a single frame, one can enclose the command and subsequent frame in curly brackets to limit its scope.}
+
+\parbox{\textwidth}{{\tt \textbackslash{}changecolours} takes one mandatory argument: the \alert{ScoutColour}. A futher set of optional parameters may be specified to override specific aspects of that \emph{ScoutColour}. There is also an additional boolean option: \alert{inverse} which serves to invert the colour scheme (e.g. purple on white instead of white on purple for ScoutPurple).}
+
+\parbox{\textwidth}{For each ScoutColour option I have tried to make the theme follow, as best I can, the colours discussed in the Scout Brand Centre's Guidelines and demonstrated in the PowerPoint template.}
+
+\parbox{\textwidth}{At the beginning of all documents this macro is run with it's default values. This sets the colour scheme to \alert{ScoutPurple} and defines the headline and footline correspondingly.}
+\end{frame}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}{\textbackslash{}changecolours\{ScoutColour\}; theme colours}
+\parbox{\columnwidth}{\scriptsize To simplify things a bit I have defined the \alert{ScoutColours} and the parameters to the {\tt \textbackslash{}changecolours} similarly. The tables below show the RGB values for these colours. This macro may take any of the following ScoutColours for the manditory argument:}
+
+\vspace{0.5\baselineskip}
+\begin{columns}[onlytextwidth,T]
+\begin{column}{0.48\textwidth}
+\Tiny
+\begin{tabularx}{\columnwidth}{XX}
+\toprule
+\raggedright Colour name \mbox{(also ScoutColour option)}&RGB value \& predominant colour\\
+\midrule
+ScoutPurple&0x\,74\,13\,DC\\
+ScoutTeal&0x\,00\,A7\,94\\
+ScoutGreen&0x\,23\,a9\,50\\
+ScoutRed&0x\,E2\,2E\,12\\
+ScoutPink&0x\,FF\,B4\,E5\\
+ScoutNavy&0x\,00\,39\,82\\
+ScoutBlue&0x\,00\,6D\,DF\\
+ScoutYellow&0x\,FF\,E6\,27\\
+ScoutBlack&0x\,00\,00\,00\\
+ScoutWhite&0x\,FF\,FF\,FF\\
+ScoutScouts\footnotemark[2]&0x\,00\,48\,51\\
+\bottomrule
+\end{tabularx}
+\end{column}
+\begin{column}{0.48\textwidth}
+\Tiny
+\begin{tabularx}{\columnwidth}{XX}
+\toprule
+ScoutColour option&Predominant colour\\
+\midrule
+ScoutNetwork&ScoutPurple/ScoutBlack\\
+ScoutExplorers&ScoutPurple/ScoutBlack\\
+ScoutScouts&ScoutScouts\\
+ScoutCubs&ScoutGreen\\
+ScoutBeavers&ScoutBlue\\
+ScoutAirScouts&ScoutBlue\\
+ScoutSeaScouts&ScoutNavy\\
+\bottomrule
+\end{tabularx}
+\end{column}
+\end{columns}
+\footnotetext[2]{This seems to be an exception to the branding colours. Allowed, but only for the Scouts section.}
+\end{frame}
+}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}%{\textbackslash{}changecolours optional parameters}
+\parbox{\textwidth}{\scriptsize Optional parameters may be specified via key--value pairs. e.g.\\{\tt \textbackslash{}changecolours[href=ScoutBlue]\{ScoutPurple\}}.\\These are described in the table below.}
+
+\Tiny
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+key & default value & notes \\
+\midrule
+inverse&\alert{false}&Swaps background and foreground colours; chooses alternative logo.\\
+alert&ScoutPurple&Sets the colour of text inside {\tt \textbackslash{}alert\{\alert{alerted text}\}}\\
+head&ScoutBlack&\ldots the colour of text in the headline.\\
+foot&ScoutBlack&\ldots the colour of text in the footline, (only affects the date on the titlepage).\\
+text&ScoutBlack&Sets the main text colour.\\
+logo&ScoutPurple&Selects the logo in the header: the modern fleur-de-lis logo; only purple white or black.\\
+href&ScoutPurple&Sets the colour of href label text {\tt \textbackslash{}href\{\emph{https://example.com}\}\{\alert{label}\}}.\\
+eg&ScoutGreen&Specifies the colour of the title in the example environment.\\
+proof&ScoutRed&\ldots the colour of the title in the proof environment.\\
+bullet&ScoutPurple&Sets the colour of itemze bullets and enumerations.\\
+titles&ScoutPurple&Specifies the colour of frame titles and section titles.\\
+subtitles&ScoutBlack&\ldots the colour of frame subtitles and subsection titles.\\
+bg&ScoutWhite&Selects background colour.\\
+sectionlogo&\alert{not set}\footnote{The section logo or branch text is set when a ScoutColour that represents a section or branch is chosen. For example when the ScoutColour ScoutCubs or ScoutSeaScouts is chosen.}&Selects the logo in the footer e.g. scouts, cubs, beavers, \ldots\\
+branch&\alert{not set}\footnotemark[2]&Specifies the text used in the scout logo e.g. Air Scouts. Use with care.\\
+bulletshape&{\Tiny\{\textbackslash{}raisebox\{0.5ex\}\{\textbackslash{}textbullet\}\}}&It's possible to change the shape of the bullets.\\
+\bottomrule
+\end{tabularx}
+\end{frame}
+}
+
+\begin{frame}{\textbackslash{}logoslide}
+\parbox{\textwidth}{\scriptsize The {\tt \textbackslash{}logoslide[]} macro produces a frame/slide with the scout logo. For contrast it will be rendered in inverse colours to the current ScoutColour. The macro itself can take the following optional arguments in the form of a set of key--value pairs:}
+
+{
+\Tiny
+\begin{tabularx}{\textwidth}{>{\hsize=.5\hsize\linewidth=\hsize}X
+                                >{\hsize=\hsize\linewidth=\hsize}X
+                                >{\hsize=.5\hsize\linewidth=\hsize}X
+                                >{\hsize=2\hsize\linewidth=\hsize}X}
+\toprule
+\textbf{Key}&\textbf{Values}&\textbf{Default}&\textbf{Notes}\\
+\midrule
+type&fleur-de-lis, stacked, all&all&This option selects the logo to use. The option all is the busiest with a fleur--de--lis, over the text Scouts over some other text.\\
+noheadlogo&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&If true, temporarily removes the logo from the headline.\\
+noheadtext&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&If true, temporarily removes all title text from the headline.\\
+text&\textcolor{ScoutPurple}{any text}&\textcolor{ScoutPurple}{empty string}&If specified will cause this text to pe present in the \emph{all} version of the logo.\\
+\bottomrule
+\end{tabularx}
+}
+
+\parbox{\textwidth}{\scriptsize If the {\tt text} option is null, or not set, and the {\tt type} is set to {\tt all} then this macro uses text set via the {\tt \textbackslash{}instutite} macro in the preamble and is rendered through Beamer thus:\linebreak {\tiny \tt \textbackslash{}insertshortinstitute[width=\{\textbackslash{}textwidth\},center,respectlinebreaks]}. If that is not set either then the stacked logo will be displayed.}
+\end{frame}
+
+\begin{frame}{\textbackslash{}twocolframe}
+\Tiny
+\parbox{\textwidth}{\scriptsize This is perhaps the weakest macro in the entire theme. It creates a frame with two columns using the Beamer {\tt columns} macros. The reason it exists is largely to work with the macro {\tt \textbackslash{}bgimage}, placing text nicely across from or over a half filled background. It expects two manditory arguments---one for each column---though each may contain nothing. While writing these slides, however, I noticed I needed to do something to make frametitles work and margins with variable sized bgimages . Thus, we have the following optional key--value pair options:}
+
+\begin{tabularx}{\textwidth}{>{\hsize=.5\hsize\linewidth=\hsize}X
+                                >{\hsize=\hsize\linewidth=\hsize}X
+                                >{\hsize=.5\hsize\linewidth=\hsize}X
+                                >{\hsize=2\hsize\linewidth=\hsize}X}
+\toprule
+\textbf{Key}&\textbf{Values}&\textbf{Default}&\textbf{Notes}\\
+\midrule
+leftcol&\textcolor{ScoutPurple}{length}&5cm&This is the size of the left column.\\
+rightcol&\textcolor{ScoutPurple}{false}&5cm&This is the size of the right column.\\
+title&\textcolor{ScoutPurple}{whatever}&\textcolor{ScoutPurple}{empty string}&If specified, places the text as the frame title.\\
+titleright&\textcolor{ScoutPurple}{whatever}&\textcolor{ScoutPurple}{empty string}&If specified and title is not, this option places this as part of the frame title in a parbox above the righthand column.\\
+titleleft&\textcolor{ScoutPurple}{whatever}&\textcolor{ScoutPurple}{empty string}&If specified and title is not, this option places this as part of the frame title in a parbox above the lefthand column.\\
+\bottomrule
+\end{tabularx}
+
+\parbox{\textwidth}{\scriptsize This macro essentially creates three columns using Beamer's column(s) environment ignoring the current value of \textbackslash{}textwidth. The central column has no content and so onle effects a separation between the other two columns.}
+\end{frame}
+
+\begin{frame}{\textbackslash{}bgimage}
+\Tiny
+\parbox{\textwidth}{\scriptsize In the Scout Brand Centre's PowerPoint template various slides are presented with a shipout background image. This theme provides the macro {\tt \textbackslash{}bgimage[]\{\}} as a convenient way to acheve the same effect. The mandatory option is the path to the graphic to be shipped out in the background. The optional key--values are as follows:}
+
+\begin{tabularx}{\textwidth}{>{\hsize=.5\hsize\linewidth=\hsize}X
+                                >{\hsize=.2\hsize\linewidth=\hsize}X
+                                >{\hsize=.15\hsize\linewidth=\hsize}X
+                                >{\hsize=3.15\hsize\linewidth=\hsize}X}
+\toprule
+\textbf{Key}&\textbf{Values}&\textbf{Default}&\textbf{Notes}\\
+\midrule
+gravity&\mbox{N,\,NE,\,E,} \mbox{SE,\,S,\,SW,} \mbox{W,\,NW,\,C}&C&If the image can be placed in such a way that it might move about, this option allows some control over its \mbox{position}. e.g. C aligns the image with a central point; NW will align the bottom and right sides of the image with the chosen viewport.\\
+\addlinespace[0.75mm]
+position&f, l, r&f&f:full slide; r and l split the slide into left and right placing the image.\\
+\addlinespace[0.75mm]
+transparency&0--1&0.0&This fades the image to the background colour in effect at the time. 0: no fade; 0.5: places the image at 50\% opacity over the background, 1: the image will effectivey be invisible.\\
+\addlinespace[0.75mm]
+ignoreaspectratio&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&If true will stretch/squash the image to fit the selected viewport. Requires fit=all.\\
+\addlinespace[0.75mm]
+fit&\mbox{all, width,} height&&If specified, the image will be scaled sufficiently to snugly fit the image `height', `width' or whole: `all' into the viewport. Otherwise the image will be scaled to completely cover the view port and will be clipped if it doesn't fit precisely.\\
+\addlinespace[0.75mm]
+onlytextwidth&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&Limit image viewport horizontally to {\tt \textbackslash{}textwidth}.\\
+\addlinespace[0.75mm]
+only\textcolor{ScoutPurple}{text}height&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&Limit image viewport vertically to slide text area; only\textcolor{ScoutPurple}{body}height will also avoid frametitles.\\
+\addlinespace[0.75mm]
+margin&\textcolor{ScoutPurple}{length}&0~pt&Image margin; also: {\tt marginleft}, {\tt marginright}, {\tt margintop}, {\tt marginbottom}.\\
+\addlinespace[0.75mm]
+alwaysshow&\textcolor{ScoutPurple}{boolean}&\textcolor{ScoutPurple}{false}&In non-beamer modes (e.g. handout) transparancy is set to 0.8. Set this to override.\\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{\textbackslash{}headervisibility}
+\tiny
+\parbox{\textwidth}{\scriptsize This macro controls what is currently visible in the headline. Running with out options will reset all options to their defaults.}
+
+\begin{tabularx}{\textwidth}{>{\hsize=0.8\hsize\linewidth=\hsize}X
+                                >{\hsize=0.8\hsize\linewidth=\hsize}X
+                                >{\hsize=0.4\hsize\linewidth=\hsize}X
+                                >{\hsize=2.0\hsize\linewidth=\hsize}X}
+\toprule
+\textbf{Key to enable}&\textbf{Ket to disable}&\textbf{Default}&\textbf{Notes}\\
+\midrule
+showheadtext&hideheadtext&show&Show/hide headline text.\\
+showheadlogo&hideheadlogo&show&Show/hide logo in headline.\\
+showtitle&hidetitle&show&Show/hide title in headline text.\\
+showparts&hideparts&show&Show/hide part name in headline text.\\
+showpartnum&hidepartnum&show&Show/hide part number in headline text.\\
+showsections&hidesections&show&Show/hide section in headline text. It will show the current section in preference to the part unless combined is enabled.\\
+combined&separate&separate&Show/hide part and section together in headline text.\footnote{If enabled this can make the headline a little busy.}\\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{\textbackslash{}togglecolours}
+\small
+\parbox{\textwidth}{This macro is used internally by the
+{\tt \textbackslash{}titlepage}
+{\tt \textbackslash{}section}
+{\tt \textbackslash{}subsection}
+{\tt \textbackslash{}part} and 
+{\tt \textbackslash{}logoslide} macros.
+It toggles the inverse option for the current ScoutColour and then executes {\tt \textbackslash{}changecolours}. This allows the slides crated with these page macros to adopt the inverse colour scheme providing contrast to the current flow of the presenation.}
+
+\parbox{\textwidth}{I dare say you could use this macro too if you so wished. It does \alert{not} take into account any optional overrides to \textbackslash{}changecolours that
+may be in effect at the time. If you need to take these choices into account your best bet is just to keep track of those options and make an
+appropriate call to \textbackslash{}changecolours yourself.}
+\end{frame}
+
+\begin{frame}{\textbackslash{}itemseps}
+\parbox{\textwidth}{\scriptsize In the process of trying to bend Beamer to my will and copy Scout Brand Centre slides as accurately as I could, I found I needed to change the spaces in itemised lists.
+I created the \textbackslash{}itemseps macro to help me to do this.} 
+
+\parbox{\textwidth}{\scriptsize If executed without options it will reset all the lengths to their default;
+with options it will change specified lengths.
+These options/lengths are described below and illustrated on the next slide.}
+
+\Tiny
+\begin{tabularx}{\textwidth}{>{\hsize=0.4\hsize\linewidth=\hsize}X
+                                >{\hsize=0.3\hsize\linewidth=\hsize}X
+                                >{\hsize=0.9\hsize\linewidth=\hsize}X
+                                >{\hsize=2.4\hsize\linewidth=\hsize}X}
+\toprule
+\textbf{option}&\textbf{Default}&\textbf{orientation}&\textbf{Notes}\\
+\midrule
+topsepi& 1~em & vertical & Distance between previous line and the 1\textsuperscript{st} item at level 1\\
+topsepii& 0.75~em & vertical & Distance between previous line and the 1\textsuperscript{st} item at level 2\\
+topsepiii& 0.5~em & vertical & Distance between previous line and the 1\textsuperscript{st} item at level 3\\
+itemsepi& 0.6~em & vertical & Distance between items at the 3\textsuperscript{rd} level\\
+itemsepii& 0.6~em & vertical & Distance between items at the 3\textsuperscript{rd} level\\
+itemsepiii& 0.6~em & vertical & Distance between items at the 3\textsuperscript{rd} level\\
+labelsep& 2~mm & horizontal (backwards) & The distance back to the item label from the current indent.\\
+leftmargini& 4~mm & horizontal & The distance from the margin to the 1\textsuperscript{st} level indent.\\
+leftmarginii& 4~mm & horizontal & The distance from the 1\textsuperscript{st} to the 2\textsuperscript{nd}\\
+leftmarginiii& 4~mm & horizontal & The distance from the 2\textsuperscript{nd} to the 3\textsuperscript{rd}\\
+\bottomrule
+\end{tabularx}
+\end{frame}
+{
+\changecolours[bullet=ScoutBlack]{ScoutPurple}
+\begin{frame}{\textbackslash{}itemseps in pictures.}
+\begin{tikzpicture}
+\node[inner sep=0pt] at (0,0) {%
+  \parbox{\textwidth}{%
+    \itemseps[topsepi=5mm,topsepii=3mm,topsepiii=1mm,itemsepi=5mm,itemsepii=3mm,itemsepiii=1mm,%
+              labelsep=1.2cm,leftmargini=2cm,leftmarginii=1cm,leftmarginiii=1cm]%
+    \begin{itemize}%
+      \item Level 1 first item%
+      \item Level 1 subsequent%
+      \begin{itemize}%
+        \item Level 2 1\textsuperscript{st}%
+        \item Level 2 2\textsuperscript{nd}%
+        \begin{itemize}%
+          \item Level 3 1\textsuperscript{st}%
+          \item Level 3 2\textsuperscript{nd}%
+        \end{itemize}%
+      \end{itemize}%
+    \end{itemize}%
+  }%
+};
+\draw [dashed] (-0.5\textwidth,-23mm) rectangle (0.5\textwidth,23mm);
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] (1   ,23mm) -- (1,18mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,18mm) -- (0   ,18mm);
+\node at (1,20.5mm)[label=right:{\Tiny {\color{ScoutPurple}topsepi}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] (1,14.5mm) -- (1,9.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,14.5mm) -- (0   ,14.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,9.5mm) -- (0   ,9.5mm);
+\node at (1,12mm)[label=right:{\Tiny {\color{ScoutPurple}itemsepi}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] (1,4.5mm) -- (1,1.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,4.5mm) -- (0   ,4.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,1.5mm) -- (0   ,1.5mm);
+\node at (1,3mm)[label=right:{\Tiny {\color{ScoutPurple}topsepii}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] (1,-5mm) -- (1,-2mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-5mm) -- (0   ,-5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-2mm) -- (0   ,-2mm);
+\node at (1,-3.5mm)[label=right:{\Tiny {\color{ScoutPurple}itemsepii}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<-,color=ScoutPurple] (1,-9mm) -- (1,-7.5mm);
+\draw [>={Latex[width=1mm,length=1mm]},<-,color=ScoutPurple] (1,-10mm) -- (1,-11.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-9mm) -- (0   ,-9mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-10mm) -- (0   ,-10mm);
+\node at (1,-9.5mm)[label=right:{\Tiny {\color{ScoutPurple}topsepiii}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<-,color=ScoutPurple] (1,-14mm) -- (1,-12.5mm);
+\draw [>={Latex[width=1mm,length=1mm]},<-,color=ScoutPurple] (1,-15mm) -- (1,-16.5mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-14mm) -- (0   ,-14mm);
+\draw [dashed,color=ScoutPurple] (1.05   ,-15mm) -- (0   ,-15mm);
+\node at (1,-14.5mm)[label=right:{\Tiny {\color{ScoutPurple}itemsepiii}}]{};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth+0.8cm} ,19mm) -- ({-0.5\textwidth+2cm},19mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+0.8cm} ,19.5mm) -- ({-0.5\textwidth+0.8cm},15.5mm);
+\node at ({14mm - 0.5\textwidth},20mm){\Tiny\color{ScoutPurple}labelsep};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth+1.8cm} ,-9mm) -- ({-0.5\textwidth+3cm},-9mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+1.8cm} ,-9.5mm) -- ({-0.5\textwidth+1.8cm},0);
+\node at ({2.4cm - 0.5\textwidth},-10.5mm){\Tiny\color{ScoutPurple}(labelsep)};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth+2.8cm} ,-20mm) -- ({-0.5\textwidth+4cm},-20mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+2.8cm} ,-20.5mm) -- ({-0.5\textwidth+2.8cm},-11.5mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+4cm} ,-20.5mm) -- ({-0.5\textwidth+4cm},-12.5mm);
+\node at ({3.4cm - 0.5\textwidth},-21.5mm){\Tiny\color{ScoutPurple}(labelsep)};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth} ,14.5mm) -- ({-0.5\textwidth+2cm},14.5mm);
+\node at ({1cm - 0.5\textwidth},13mm){\Tiny\color{ScoutPurple}leftmargini};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth+2cm} ,-2mm) -- ({-0.5\textwidth+3cm},-2mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+2cm} ,-2.5mm) -- ({-0.5\textwidth+2cm},19.5mm);
+\node at ({2.5cm - 0.5\textwidth},-4mm){\Tiny\color{ScoutPurple}leftmarginii};
+
+\draw [>={Latex[width=1mm,length=1mm]},<->,color=ScoutPurple] ({-0.5\textwidth+3cm} ,-13.5mm) -- ({-0.5\textwidth+4cm},-13.5mm);
+\draw [dashed,color=ScoutPurple] ({-0.5\textwidth+3cm} ,-14mm) -- ({-0.5\textwidth+3cm},-1.5mm);
+\node at ({3.5cm - 0.5\textwidth},-15.5mm){\Tiny\color{ScoutPurple}leftmarginiii};
+
+\end{tikzpicture}  
+\end{frame}
+}

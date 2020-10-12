@@ -1,0 +1,272 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+%logo used in titlepage template
+\pgfdeclareimage[height=1.38cm]{brlogolinearwhite}{logo-linear-white-sansborder}
+\pgfdeclareimage[height=1.38cm]{brlogolinearpurple}{logo-linear-betterpurple-sansborder}
+\pgfdeclareimage[height=1.38cm]{brlogolinearblack}{logo-linear-black-sansborder}
+
+\setbeamertemplate{enumerate items}[circle]
+
+\usepackage{calc}
+
+% Internal macro \splittitle for use on the \titlepage
+
+\newlength{\scouts@titlewd} % Will be used to hold length 33.3% of title width
+\newlength{\scouts@titleiwd} % Will be used to hold length 66.6% of title width
+\def\scouts@tit{} % To build title bit-by-bit from each token split by space in \inserttitle 
+\newlength{\scouts@titwd} % set to the length og scout@tit at each iteration for comparison to 33.3% and 66.6% lenghts 
+
+\usepackage{listofitems} % need to split title up into tokens/items (essentially each words)
+% Find length of title; divide by 3; find word that split and decide whether to break
+% before or after based on minimum of three line's spacings. 
+\def\scouts@titA{}\newlength{\scouts@titAwd}\setlength{\scouts@titAwd}{0pt}%
+\def\scouts@titB{}\newlength{\scouts@titBwd}\setlength{\scouts@titBwd}{0pt}%    A A L|L L L L|L Z Z
+\def\scouts@titX{}\newlength{\scouts@titXwd}\setlength{\scouts@titXwd}{0pt}%    B B B|B M M M|M Z Z
+\def\scouts@titZ{}\newlength{\scouts@titZwd}\setlength{\scouts@titZwd}{0pt}%    A A N|N N N X|X X X
+\def\scouts@titL{}\newlength{\scouts@titLwd}\setlength{\scouts@titLwd}{0pt}%    B B B|B O O X|X X X
+\def\scouts@titM{}\newlength{\scouts@titMwd}\setlength{\scouts@titMwd}{0pt}%
+\def\scouts@titN{}\newlength{\scouts@titNwd}\setlength{\scouts@titNwd}{0pt}%
+\def\scouts@titO{}\newlength{\scouts@titOwd}\setlength{\scouts@titOwd}{0pt}%
+\newlength{\scouts@AL}
+\newlength{\scouts@AN}
+\newlength{\scouts@BM}
+\newlength{\scouts@BO}
+\newlength{\scouts@LZ}
+\newlength{\scouts@MZ}
+\newlength{\scouts@NX}
+\newlength{\scouts@OX}
+\newlength{\scouts@ALLZ}
+\newlength{\scouts@ANNX}
+\newlength{\scouts@BMMZ}
+\newlength{\scouts@BOOX}
+
+\newcommand{\splittitle}{%
+  \settowidth{\scouts@titlewd}{\usebeamerfont{title}\insertshorttitle}% Get length of title
+  \setlength{\scouts@titlewd}{0.333\scouts@titlewd}% Want to split into ideally 33% each
+  \setlength{\scouts@titleiwd}{2.0\scouts@titlewd}% Want to split into ideally 33% each
+  \setsepchar{ }%
+  \readlist\mytitle{\inserttitle}% Split title into words
+  \def\scouts@tit{}%
+  \foreachitem\word\in\mytitle{%
+    \ifx\scouts@tit\@empty\relax\edef\scouts@tit{\word}\else\edef\scouts@tit{\scouts@tit\space\word}\fi%  total str so far
+    \settowidth{\scouts@titwd}{\usebeamerfont{title}\scouts@tit}% What's its width?
+% --
+    \ifx\scouts@titA\@empty\relax% first word in foreach loop
+      \edef\scouts@titA{\word}% A=word
+      \edef\scouts@titB{\word}% B=word
+    \else
+      \ifdim \scouts@titwd < \scouts@titlewd% if title so far is less than 33% add word to A and get A's length
+        \edef\scouts@titA{\scouts@titA\space\word}% A+=word
+        \edef\scouts@titB{\scouts@titB\space\word}% B+=word
+      \else% no longer need to set anything for A
+        \ifx\scouts@titL\@empty\relax% Haven't started L,N yet: (first round); Finish B; Start L,N
+          \edef\scouts@titB{\scouts@titB\space\word}% B=B+word
+          \edef\scouts@titL{\word}% L=word
+          \edef\scouts@titN{\word}% N=word
+        \else% no longer need to set anything for B. Continue on to set L,N. Start M,O
+          \ifdim \scouts@titwd < \scouts@titleiwd% if title so far is less than 66% add word to LMNO
+            \edef\scouts@titL{\scouts@titL\space\word}% L+=word
+            \edef\scouts@titN{\scouts@titN\space\word}% N+=word
+            \ifx\scouts@titM\@empty\relax% Haven't started M,O yet; so do so
+              \edef\scouts@titM{\word}% M=word
+              \edef\scouts@titO{\word}% O=word
+            \else
+              \edef\scouts@titM{\scouts@titM\space\word}% M+=word
+              \edef\scouts@titO{\scouts@titO\space\word}% O+=word
+            \fi
+          \else% no longer need to set anything for N,O
+            \ifx\scouts@titX\@empty\relax% We haven't set X yet but need to now (first pass this level); last word for L,M
+              \edef\scouts@titL{\scouts@titL\space\word}% L=L+word
+              \edef\scouts@titM{\scouts@titM\space\word}% M=M+word
+              \edef\scouts@titX{\word}% X=word
+            \else% no longer need to set anything for L,M; need to start/continue Z and continue X
+              \edef\scouts@titX{\scouts@titX\space\word}% X=X+word
+              \ifx\scouts@titZ\@empty\relax% We haven't set Z yet but need to now (first pass this level)
+                \edef\scouts@titZ{\word}% Z=word
+              \else%
+                \edef\scouts@titZ{\scouts@titZ\space\word}% Z=Z+word
+              \fi%
+            \fi%
+          \fi%
+        \fi%
+      \fi%      
+    \fi%
+  }% This ends the forloop
+  \settowidth{\scouts@titAwd}{\usebeamerfont{title}\scouts@titA}%
+  \settowidth{\scouts@titBwd}{\usebeamerfont{title}\scouts@titB}%
+  \settowidth{\scouts@titLwd}{\usebeamerfont{title}\scouts@titL}%
+  \settowidth{\scouts@titMwd}{\usebeamerfont{title}\scouts@titM}%
+  \settowidth{\scouts@titNwd}{\usebeamerfont{title}\scouts@titN}%
+  \settowidth{\scouts@titOwd}{\usebeamerfont{title}\scouts@titO}%
+  \settowidth{\scouts@titXwd}{\usebeamerfont{title}\scouts@titX}%
+  \settowidth{\scouts@titZwd}{\usebeamerfont{title}\scouts@titZ}%
+  \setlength{\scouts@AL}{\scouts@titAwd - \scouts@titLwd}\ifdim \scouts@AL < 0pt \setlength{\scouts@AL}{-1.0\scouts@AL}\fi% |A-L|
+  \setlength{\scouts@AN}{\scouts@titAwd - \scouts@titNwd}\ifdim \scouts@AN < 0pt \setlength{\scouts@AN}{-1.0\scouts@AN}\fi% |A-N|
+  \setlength{\scouts@BM}{\scouts@titBwd - \scouts@titMwd}\ifdim \scouts@BM < 0pt \setlength{\scouts@BM}{-1.0\scouts@BM}\fi% |B-M|
+  \setlength{\scouts@BO}{\scouts@titBwd - \scouts@titOwd}\ifdim \scouts@BO < 0pt \setlength{\scouts@BO}{-1.0\scouts@BO}\fi% |B-O|
+  \setlength{\scouts@LZ}{\scouts@titLwd - \scouts@titZwd}\ifdim \scouts@LZ < 0pt \setlength{\scouts@LZ}{-1.0\scouts@LZ}\fi% |L-Z|
+  \setlength{\scouts@MZ}{\scouts@titMwd - \scouts@titZwd}\ifdim \scouts@MZ < 0pt \setlength{\scouts@MZ}{-1.0\scouts@MZ}\fi% |M-Z|
+  \setlength{\scouts@NX}{\scouts@titNwd - \scouts@titXwd}\ifdim \scouts@NX < 0pt \setlength{\scouts@NX}{-1.0\scouts@NX}\fi% |N-X|
+  \setlength{\scouts@OX}{\scouts@titOwd - \scouts@titXwd}\ifdim \scouts@OX < 0pt \setlength{\scouts@OX}{-1.0\scouts@OX}\fi% |O-X|
+  \setlength{\scouts@ALLZ}{\scouts@AL + \scouts@LZ}%  |A-L| + |L-Z|
+  \setlength{\scouts@ANNX}{\scouts@AN + \scouts@NX}%  |A-N| + |N-X|
+  \setlength{\scouts@BMMZ}{\scouts@BM + \scouts@MZ}%  |B-M| + |M-Z|
+  \setlength{\scouts@BOOX}{\scouts@BO + \scouts@OX}%  |B-O| + |O-X|
+%
+% Implementing a if condition1 && condition2 && condition3 {}    /* |A-L|+|L-Z| is smallest */ 
+%                elsif condition4 && condition5 && condition6 {} /* |A-N|+|N-X| is smallest */
+%                elsif condition7 && condition8 && condition9 {} /* |B-M|+|M-Z| is smallest */
+%                else {}                                         /* |B-O|+|O-X| is smallest */
+% So start with the else condition then override if and for each other case
+% Split title like this: B B B|B O O X|X X X    (BB|BOOOX|XX)
+  \def\scouts@tit{\mbox{\scouts@titB}\\\mbox{\scouts@titO}\\\mbox{\scouts@titX}}%
+  \setlength{\scouts@titlewd}{\scouts@titBwd}% 1
+  \ifdim\scouts@titOwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titOwd}\fi% 2
+  \ifdim\scouts@titXwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titXwd}\fi% 3
+%
+% Split title like this: A A L|L L L L|L Z Z    (AAAL|L|LZZZ)
+  \ifdim\scouts@ALLZ<\scouts@ANNX\ifdim\scouts@ALLZ<\scouts@BMMZ\ifdim\scouts@ALLZ<\scouts@BOOX%
+    \def\scouts@tit{\mbox{\scouts@titA}\\\mbox{\scouts@titL}\\\mbox{\scouts@titZ}}%
+    \setlength{\scouts@titlewd}{\scouts@titAwd}% 1
+    \ifdim\scouts@titLwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titLwd}\fi% 2
+    \ifdim\scouts@titZwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titZwd}\fi% 3
+  \fi\fi\fi%
+%
+% Split title like this: A A N|N N N X|X X X    (AAAN|NNX|XX)
+  \ifdim\scouts@ANNX<\scouts@ALLZ\ifdim\scouts@ANNX<\scouts@BMMZ\ifdim\scouts@ANNX<\scouts@BOOX%
+    \def\scouts@tit{\mbox{\scouts@titA}\\\mbox{\scouts@titN}\\\mbox{\scouts@titX}}%
+    \setlength{\scouts@titlewd}{\scouts@titAwd}% 1
+    \ifdim\scouts@titNwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titNwd}\fi% 2
+    \ifdim\scouts@titXwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titXwd}\fi% 3
+  \fi\fi\fi%
+%
+% Split title like this: B B B|B M M M|M Z Z    (BB|BMM|MZZZ)
+  \ifdim\scouts@BMMZ<\scouts@ALLZ\ifdim\scouts@BMMZ<\scouts@ANNX\ifdim\scouts@BMMZ<\scouts@BOOX%
+    \def\scouts@tit{\mbox{\scouts@titB}\\\mbox{\scouts@titM}\\\mbox{\scouts@titZ}}%
+    \setlength{\scouts@titlewd}{\scouts@titBwd}% 1
+    \ifdim\scouts@titMwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titMwd}\fi% 2
+    \ifdim\scouts@titZwd>\scouts@titlewd\setlength{\scouts@titlewd}{\scouts@titZwd}\fi% 3
+  \fi\fi\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for \titlepage
+%
+\newlength{\shortmargin}
+\setlength{\shortmargin}{4.5mm}
+\newlength{\headwidth}
+
+\defbeamertemplate*{title page}{scouts}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=\paperheight,ignorebg]{title page}%
+    \begin{minipage}[t][{\paperheight-2cm}][t]{\paperwidth}%
+      \splittitle%
+      \setlength{\headwidth}{\scouts@titlewd}%
+      \addtolength{\headwidth}{2\shortmargin}%
+      \begin{beamercolorbox}[wd=\headwidth,ht=32.5mm,dp=4mm,sep=\shortmargin]{title page}%
+        \usebeamerfont{title}\scouts@tit%
+      \end{beamercolorbox}%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \begin{beamercolorbox}[wd=\textwidth,leftskip=\shortmargin,ignorebg]{subtitle}%
+          \insertsubtitle%
+        \end{beamercolorbox}%
+        \vspace{2mm}%
+      \fi%
+      \begin{beamercolorbox}[leftskip=\shortmargin,rightskip=\shortmargin,ignorebg]{author}%
+        \usebeamerfont{author}\linespread{1.2}\selectfont%
+        \ifx\beamer@shortauthor\empty%
+          \ifx\beamer@shortinstitute\empty\relax% No \author && No \instutute
+          \else%
+            A presentation by\\{\fontseries{ub}\selectfont\insertshortinstitute}% \institute set && No \author
+          \fi%
+        \else%
+          \ifx\beamer@shortinstitute\empty%
+            A presentation by\\{\fontseries{ub}\selectfont\insertauthor}% \author set && No \institute
+          \else%
+            A presentation by\\{\fontseries{ub}\selectfont\insertauthor~@~\insertshortinstitute}% \author set && \institute set
+          \fi%
+        \fi%
+      \end{beamercolorbox}%
+    \end{minipage}
+    \begin{minipage}[b][2cm][b]{\paperwidth}%
+      \begin{beamercolorbox}[wd=\paperwidth,sep=\shortmargin,ignorebg]{title page}%
+        \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+          \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{brlogolinearblack}%
+        }{%\else%
+          \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+            \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{brlogolinearwhite}%
+          }{%\else%
+            \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{brlogolinearpurple}%
+          }%\fi%
+        }%\fi%
+      \end{beamercolorbox}%
+    \end{minipage}%
+  \end{beamercolorbox}%
+  \addtocounter{framenumber}{-1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for page made by \section see AtBeginSection 
+%
+\defbeamertemplate*{section page}{scouts}{%
+  \vspace{41mm}%
+      \begin{beamercolorbox}[ht=\baselineskip,colsep=0pt,leftskip=2.5mm,ignorebg]{section title}%
+        \usebeamerfont{section title}\insertsection%
+      \end{beamercolorbox}%
+  \vfill%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for page made by \subsection see AtBeginSubSection 
+%
+\defbeamertemplate*{subsection page}{scouts}{%
+  \vspace{41mm}%
+      \begin{beamercolorbox}[ht=\baselineskip,colsep=0pt,leftskip=2.5mm,ignorebg]{section title}%
+        \usebeamerfont{section title}\insertsection%
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[ht=\baselineskip,leftskip=2.5mm]{subsection title}%
+        \parbox[t]{\textwidth-2.5mm}{\raggedright\usebeamerfont{subsection title}\insertsubsection}%
+      \end{beamercolorbox}%
+  \vfill%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for page made by \part see AtBeginPart
+%
+\defbeamertemplate*{part page}{scouts}{%
+  \hypertarget{\scouts@PartID}{}%
+  \vspace{39mm}%
+      \begin{beamercolorbox}[ht=\baselineskip,colsep=0pt,leftskip=2.5mm,ignorebg]{section title}%
+        \usebeamerfont{section title}\partname~\insertromanpartnumber%
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[ht=\baselineskip,leftskip=2.5mm]{subsection title}%
+        \parbox[t]{\textwidth-2.5mm}{\raggedright\usebeamerfont{subsection title}\insertpart}%
+      \end{beamercolorbox}%
+  \vfill%
+}
+
+\mode
+<all>

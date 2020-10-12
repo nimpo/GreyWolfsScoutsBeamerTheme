@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+\pgfdeclareimage[width=23mm]{logolinearwhite}{logo-linear-white-sansborder}
+\pgfdeclareimage[width=23mm]{logolinearblack}{logo-linear-black-sansborder}
+\pgfdeclareimage[width=23mm]{logolinearpurple}{logo-linear-betterpurple-sansborder}
+
+\pgfdeclareimage[width=22mm]{logonetworkwhite}{network-logo-white-sansborder}
+\pgfdeclareimage[width=22mm]{logonetworkblack}{network-logo-black-sansborder}
+\pgfdeclareimage[width=22mm]{logonetwork}{network-logo-black-sansborder}
+
+\pgfdeclareimage[width=25mm]{logoexplorers}{explorers-logo-blue-sansborder}
+\pgfdeclareimage[width=25mm]{logoexplorerswhite}{explorers-logo-white-sansborder}
+\pgfdeclareimage[width=25mm]{logoexplorersblack}{explorers-logo-black-sansborder}
+
+\pgfdeclareimage[width=22mm]{logoscouts}{scouts-logo-green-sansborder}
+\pgfdeclareimage[width=22mm]{logoscoutswhite}{scouts-logo-white-sansborder}
+\pgfdeclareimage[width=22mm]{logoscoutsblack}{scouts-logo-black-sansborder}
+
+\pgfdeclareimage[width=15mm]{logocubs}{cubs-logo-green-sansborder}
+\pgfdeclareimage[width=15mm]{logocubswhite}{cubs-logo-white-sansborder}
+\pgfdeclareimage[width=15mm]{logocubsblack}{cubs-logo-black-sansborder}
+
+\pgfdeclareimage[width=22mm]{logobeavers}{beavers-logo-blue-sansborder}
+\pgfdeclareimage[width=22mm]{logobeaversblack}{beavers-logo-black-sansborder}
+\pgfdeclareimage[width=22mm]{logobeaverswhite}{beavers-logo-white-sansborder}
+\pgfdeclareimage[width=22mm]{logobeaversmulti}{beavers-logo-multi-colour-sansborder}
+
+%\defbeamertemplate*{frametitle continuation}{scouts}{%There's a weird space anomily with continuation 
+%  (\insertcontinuationcountroman)\ifnum\beamer@autobreakcount>1\vspace{0.35mm}\fi%
+%}
+\defbeamertemplate*{frametitle}{scouts}{%
+  \begin{beamercolorbox}[ht=12mm,dp=1.2mm,sep=0mm]{title}%
+    \usebeamerfont{frametitle}\insertframetitle%
+  \end{beamercolorbox}%
+  \ifnum\beamer@autobreakcount>1\vspace{1.2mm}\fi% Actually the weird space anomily need fixing here now (Don't know what changed this
+}
+
+\defbeamertemplate*{navigation symbols}{scouts}{}
+
+
+\mode
+<all>

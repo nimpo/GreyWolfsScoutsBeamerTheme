@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[yyyymmdd]{datetime} %See https://xkcd.com/1179/
+\renewcommand{\dateseparator}{--}
+\usepackage{calc}
+
+\setlength\parskip{0.5\baselineskip}
+
+\hypersetup{pdfborder = {0 0 0},colorlinks}
+
+%beamer sets the height to 9cm and the width to 16cm 
+%ppt uses 10x17.77 inches
+% There is therefore an inherent scale factor 9/(10*2.54) = 0.3543
+% ie for example the 18pt font in ppt title header should be ~ 6.4pt here
+\newcommand{\pptratio}{\dimexpr0.3543pt\relax}%PPT to Beamer template measures (so pt sizes transfer)  
+
+\usepackage{NunitoSansOS2v3}% Import the font metrics from convertion to T1 by Mike Jones
+\usepackage{pgf}% used to load logos
+
+\usepackage{beamerscoutslogo}% Where the \logoslide macro is stashed
+\usepackage{beamerscoutschangecolours}% Where the \changecolours, \togglecolours and \headervisibility macros are
+\usepackage{beamerscoutsbgimage}% The \bgimage macro is defined in this package
+\usepackage{beamerscoutstwocolframe}% Here you'll find the weak \twocolframe macro
+\usepackage{beamerscoutsitemseps}% The \itemseps macro and defaults
+
+\usepackage{multicol}%used in scout demo but still useful
+
+%Fix warning caused by translate token in Appendix name
+% https://tex.stackexchange.com/questions/192686/hyperref-warning-caused-by-beamer-appendix#192689
+\renewcommand\appendixname{Appendix}
+
+%\newlength{scoutmargin}\setlength\scoutmargin{0.175\paperwidth} %Scales margin as same proportion of width as SBC PPT
+\newlength{\scoutmargin}\setlength\scoutmargin{0.5\paperwidth}\addtolength{\scoutmargin}{-52mm}      %keeps textwidth fixed to 104mm cf SBC PPT
+\ifdim \scoutmargin < 10mm \setlength\scoutmargin{10mm} \fi  % Emergency margin for odd slide sizes (shouldn't ever come to this)
+
+\setbeamersize{text margin left=\scoutmargin} 
+\setbeamersize{text margin right=\scoutmargin} 
+
+% Load all Grey Scouts Theme files
+\usefonttheme{scouts}
+\usecolortheme{scouts}
+\useinnertheme{scouts}
+\useoutertheme{scouts}
+
+%%%%%%%%%%%%%
+% Making the onlyparts TOC and filling it with part names for each part definition 
+% 
+% The basic method came from this post:
+% https://tex.stackexchange.com/questions/5285/tableofcontents-from-part-commands-in-beamer#answer-5418
+% I added hyperlinks and some style.
+%
+\newcommand{\scouts@PartID}{}
+\AtBeginPart{%
+  \begingroup%
+    \togglecolours%
+    \renewcommand{\scouts@PartID}{Part\the\c@part}%
+    \addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partnameshort}{\the\c@page}}%
+  % If you define a part, you get a partpage separator frame whether you like it or not.
+  % 1, because it makes sense and 2, because I can'd be bothered going trawling through
+  % the code again to findout if it's @@@part and @@spart or what that needs redefining.
+  % c.f. section and subsection below:
+    \frame{\partpage}
+  \endgroup%
+}
+\providecommand\beamer@partintoc[3]{%
+  \ifnum\c@tocdepth=-1\relax
+    \makebox[1.5cm][l]{Part #1:}\hfill\parbox[t]{\textwidth-2cm}{\hyperlink{Part#1}{#2}}
+    \par
+  \fi
+}
+\define@key{beamertoc}{onlyparts}[]{%
+  \c@tocdepth=-1\relax
+}
+
+%%%%%%%%%%%%%%
+% Change starred section behaviour of \section*{}
+% Create a frame if not starred don't otherwise but add to TOC regardless
+%
+\newif\ifstarred
+\def\beamer@@section{\@ifnextchar*{\global\starredtrue\beamer@@ssection}{\global\starredfalse\beamer@@@section}}
+\long\def\beamer@@ssection*#1{\beamer@section[{#1}]{#1}} %Change * behaviour for counting
+%Section page setup
+\AtBeginSection{%
+\begingroup%
+\togglecolours%
+\ifstarred\else%
+\frame{\sectionpage}%
+\fi%
+\endgroup%
+}
+
+%%%%%%%%%%%%%%
+% Change starred section behaviour of \subsection*{}
+% Create a frame if not starred don't otherwise but add to TOC regardless
+%
+\newif\ifsstarred%
+\def\beamer@@subsection{\@ifnextchar*{\global\sstarredtrue\beamer@@ssubsection}{\global\sstarredfalse\beamer@@@subsection}}%
+\long\def\beamer@@ssubsection*#1{\beamer@subsection[{#1}]{#1}} %Change * behaviour for counting
+%Subsection page setup
+\AtBeginSubsection{%
+\begingroup%
+\togglecolours%
+\ifsstarred\else%
+\frame{\subsectionpage}%
+\fi%
+\endgroup%
+}
+
+% Force ScoutPurple colours to start
+\AtBeginDocument{\changecolours{ScoutPurple}}
+

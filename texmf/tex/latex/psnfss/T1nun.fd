@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License 
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License 
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see 
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesFile{T1nun.fd}
+    [2020-07-25 font definitions for T1/nun Nunito Sans OS2v3]
+
+\DeclareFontFamily{T1}{nun}{}
+
+%Lets arange the declarations in Weight groups then shape groups
+%Medium-weight m (from NunitoSansOS2v3-Regular.ttf NunitoSansOS2v3-Italic.ttf)
+\DeclareFontShape{T1}{nun}{m}{n} {<-> nunmn8t}{}
+\DeclareFontShape{T1}{nun}{m}{it}{<-> nunmit8t}{}
+\DeclareFontShape{T1}{nun}{m}{sl}{<-> ssub * nun/m/it}{}
+\DeclareFontShape{T1}{nun}{m}{sc}{<-> ssub * nun/m/n}{}
+%Bold b (from NunitoSansOS2v3-Bold.ttf NunitoSansOS2v3-BoldItalic.ttf) 
+\DeclareFontShape{T1}{nun}{b}{n} {<-> nunbn8t}{}
+\DeclareFontShape{T1}{nun}{b}{it}{<-> nunbit8t}{}
+\DeclareFontShape{T1}{nun}{b}{sl} {<->ssub * nun/b/it}{}
+\DeclareFontShape{T1}{nun}{b}{sc} {<->ssub * nun/b/n}{}
+%Bold-Extended (there's no explicit bx font so substitute from nun/b/* otherwise Latex complains)
+\DeclareFontShape{T1}{nun}{bx}{n} {<->ssub * nun/b/n}{}
+\DeclareFontShape{T1}{nun}{bx}{it}{<->ssub * nun/b/it}{}
+\DeclareFontShape{T1}{nun}{bx}{sl} {<->ssub * nun/b/it}{}
+\DeclareFontShape{T1}{nun}{bx}{sc} {<->ssub * nun/b/n}{}
+%Semi-bold (from NunitoSansOS2v3-SemiBold.ttf NunitoSansOS2v3-SemiBoldItalic.ttf)
+\DeclareFontShape{T1}{nun}{sb}{n} {<-> nunsbn8t}{}
+\DeclareFontShape{T1}{nun}{sb}{it}{<-> nunsbit8t}{}
+\DeclareFontShape{T1}{nun}{sb}{sc}{<-> ssub * nun/sb/n}{}
+\DeclareFontShape{T1}{nun}{sb}{sl}{<-> ssub * nun/sb/it}{}
+%Extra Bold eb (from NunitoSansOS2v3-ExtraBold.ttf NunitoSansOS2v3-ExtraBoldItalic.ttf)
+\DeclareFontShape{T1}{nun}{eb}{n} {<-> nunebn8t}{}
+\DeclareFontShape{T1}{nun}{sb}{it}{<-> nunebit8t}{}
+\DeclareFontShape{T1}{nun}{eb}{sc}{<-> ssub * nun/eb/n}{}
+\DeclareFontShape{T1}{nun}{eb}{sl}{<-> ssub * nun/eb/it}{}
+%Ultra Bold ub (from NunitoSansOS2v3-Black.ttf NunitoSansOS2v3-BlackItalic.ttf)
+\DeclareFontShape{T1}{nun}{ub}{n} {<-> nunubn8t}{}
+\DeclareFontShape{T1}{nun}{ub}{it}{<-> nunubit8t}{}
+\DeclareFontShape{T1}{nun}{ub}{sc}{<-> ssub * nun/ub/n} {}
+\DeclareFontShape{T1}{nun}{ub}{sl}{<-> ssub * nun/ub/it}{}
+%Light l (from NunitoSansOS2v3-Light.ttf NunitoSansOS2v3-LightItalic.ttf)
+\DeclareFontShape{T1}{nun}{l}{n} {<-> nunln8t}{}
+\DeclareFontShape{T1}{nun}{l}{it}{<-> nunlit8t}{}
+\DeclareFontShape{T1}{nun}{l}{sc}{<-> ssub * nun/l/n}{}
+\DeclareFontShape{T1}{nun}{l}{sl}{<-> ssub * nun/l/it}{}
+%Extra light el (from NunitoSansOS2v3-ExtraLight.ttf NunitoSansOS2v3-ExtraLightItalic.ttf)
+\DeclareFontShape{T1}{nun}{el}{n} {<-> nuneln8t}{}
+\DeclareFontShape{T1}{nun}{el}{it}{<-> nunelit8t}{}
+\DeclareFontShape{T1}{nun}{el}{sc}{<-> ssub * nun/el/n}{}
+\DeclareFontShape{T1}{nun}{el}{sl}{<-> ssub * nun/el/it}{}
+
+\endinput
+

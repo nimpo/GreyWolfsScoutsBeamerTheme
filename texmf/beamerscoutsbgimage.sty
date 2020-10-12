@@ -1,0 +1,208 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{beamerscoutsbgimage}
+
+\usepackage{calc}
+\usepackage{tikz}
+\usepackage{pgf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bgimage
+%%%%%%%%%
+
+% Setup variables and keyvalues for \bgimage macro
+\newlength{\imageheight}
+\newlength{\imagewidth}
+\newlength{\scaledheight}
+\newlength{\scaledwidth}
+\newlength{\desiredwidth}
+\newlength{\desiredheight}
+\newlength{\desiredxoffset}
+\newlength{\desiredyoffset}
+\newlength{\pointx}
+\newlength{\pointy}
+
+\newif\ifbgimage@ignoreaspectratio
+\define@key{bgimage}{ignoreaspectratio}[true]{\csname bgimage@ignoreaspectratio#1\endcsname}% Booleans are tricksey
+\def\bgimage@gravity{N}
+\define@key{bgimage}{gravity}{\def\bgimage@gravity{#1}}
+\def\bgimage@position{l}
+\define@key{bgimage}{position}{\def\bgimage@position{#1}}
+\def\bgimage@fit{\@empty}
+\define@key{bgimage}{fit}{\def\bgimage@fit{#1}}
+\def\bgimage@transparency{\@empty}
+\define@key{bgimage}{transparency}{\def\bgimage@transparency{#1}}
+\def\bgimage@margin{0pt}
+\define@key{bgimage}{margin}{\def\bgimage@margin{#1}}
+\def\bgimage@marginleftleft{0pt}
+\define@key{bgimage}{marginleft}{\def\bgimage@marginleft{#1}}
+\def\bgimage@marginright{0pt}
+\define@key{bgimage}{marginright}{\def\bgimage@marginright{#1}}
+\def\bgimage@margintop{0pt}
+\define@key{bgimage}{margintop}{\def\bgimage@margintop{#1}}
+\def\bgimage@marginbottom{0pt}
+\define@key{bgimage}{marginbottom}{\def\bgimage@marginbottom{#1}}
+
+\newif\ifbgimage@onlytextheight
+\define@key{bgimage}{onlytextheight}[true]{\csname bgimage@onlytextheight#1\endcsname}% Booleans are tricksey
+\newif\ifbgimage@onlytextwidth
+\define@key{bgimage}{onlytextwidth}[true]{\csname bgimage@onlytextwidth#1\endcsname}% Booleans are tricksey
+\newif\ifbgimage@onlybodyheight
+\define@key{bgimage}{onlybodyheight}[true]{\csname bgimage@onlybodyheight#1\endcsname}% Booleans are tricksey
+\newif\ifbgimage@alwaysshow
+\define@key{bgimage}{alwaysshow}[true]{\csname bgimage@alwaysshow#1\endcsname}% Booleans are tricksey
+
+
+% macro to set a background image
+% currently only full or half frame are supported.
+% usage: \bgimage[position=(f|l|r),gravity=(NE|N|NW|W|SW|S|SE|E|C),transparency=(0.0-1.0),fit=,
+%                 ignoreaspectratio=(true|false),margin=0pt,marginleft=0pt,marginright=0pt,
+%                 margintop=0pt,marginbottom=0pt,onlytextwidth=(true|false),
+%                 onlybodyheight=(true|false),onlytextheight=(true|false),
+%                 alwaysshow=(true|false)]{image}
+\newcommand{\bgimage}[2][]{
+  \setkeys{bgimage}{gravity=C,position=f,transparency=0,ignoreaspectratio=false,%
+                    margin=0pt,marginleft=0pt,marginright=0pt,margintop=0pt,marginbottom=0pt,%
+                    fit=,onlytextwidth=false,onlybodyheight=false,onlytextheight=false,alwaysshow=false}%
+  \setkeys{bgimage}{#1}%
+  \setkeys{bgimage}{marginleft=\bgimage@margin,marginright=\bgimage@margin,margintop=\bgimage@margin,marginbottom=\bgimage@margin}% Set individual margins to global margin
+  \setkeys{bgimage}{#1}% Override margins if specified
+%
+  \def\Image{#2}%
+%
+% To save ink on printouts, make all backgrounds 80% transparent set alwaysshow to disable this per call to bgimage.
+\mode<handout|trans>{\ifbgimage@alwaysshow\else\setkeys{bgimage}{transparency=0.8}\fi}%
+%
+%%What size hole will we be fitting the image to
+% Offsets as received from options
+% Setup for default full-screen
+  \setlength{\desiredxoffset}{0pt}%
+  \setlength{\desiredyoffset}{0pt}%
+  \ifbgimage@onlybodyheight%
+    \setlength{\desiredyoffset}{\footheight}%
+    \setlength{\desiredheight}{\paperheight - \headdp - \headheight - \footheight - 13.2mm}% I dont like the hardwire but I can't precalc the \frametitle ht, can I?
+  \else\ifbgimage@onlytextheight%
+    \setlength{\desiredyoffset}{\footheight}%
+    \setlength{\desiredheight}{\textheight}%
+  \else%
+    \setlength{\desiredheight}{\paperheight}%
+  \fi\fi%
+%
+%  \setlength{\desiredheight}{\paperheight}%
+  \ifbgimage@onlytextwidth%
+    \setlength{\desiredwidth}{\textwidth}%
+    \setlength{\desiredxoffset}{0.5\paperwidth-0.5\textwidth}%
+  \else%
+    \setlength{\desiredwidth}{\paperwidth}%
+  \fi%
+  \expandafter\ifstrequal\expandafter{\bgimage@position}{r}%
+  {% If the image is split right
+    \setlength{\desiredxoffset}{0.5\paperwidth}%
+    \setlength{\desiredwidth}{0.5\desiredwidth}%
+  }%
+  {% Else (not right)
+    \expandafter\ifstrequal\expandafter{\bgimage@position}{l}%
+    {% If the image is split left
+      \setlength{\desiredwidth}{0.5\desiredwidth}%
+    }{}%
+  } %
+%
+% Deal with margin now
+  \addtolength{\desiredxoffset}{\bgimage@marginleft}%
+  \addtolength{\desiredyoffset}{\bgimage@marginbottom}%
+  \addtolength{\desiredwidth}{-\bgimage@marginleft}%
+  \addtolength{\desiredwidth}{-\bgimage@marginright}%
+  \addtolength{\desiredheight}{-\bgimage@marginbottom}%
+  \addtolength{\desiredheight}{-\bgimage@margintop}%
+%
+% Get Image Dimensions 
+  \settoheight{\imageheight}{\includegraphics{\Image}}%
+  \settowidth{\imagewidth}{\includegraphics{\Image}}%
+%
+% Get the potential scaled image dimensions
+%  \def\bg@raise{0pt}%
+  \setlength{\scaledheight}{\imageheight * \ratio{0.01\desiredwidth}{0.01\imagewidth}}% The factor of 0.01 is necessary to avoid overflow
+  \setlength{\scaledwidth}{\imagewidth * \ratio{0.01\paperheight}{0.01\imageheight}}% ... I can't imagine an image included that >1Gpixel
+  \expandafter\ifstrequal\expandafter{\bgimage@fit}{all}{%
+    \setlength{\scaledheight}{\paperheight}%
+    \setlength{\scaledwidth}{\desiredwidth}%
+  }{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@fit}{height}{%
+    \setlength{\scaledheight}{\paperheight}%
+  }{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@fit}{width}{%
+    \setlength{\scaledwidth}{\desiredwidth}%
+  }{}%
+%Set origin points from gravity to pin image at, using and set pgftextkeys top, bottom, left and right into variables \myargA and \myargB
+%start by assuming request is for left hand side bg image (pos=l)
+%Change to 1pt max
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{NW}{\setlength{\pointy}{1pt}  \setlength{\pointx}{0pt}  \def\myargA{top}\def\myargB{left}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{N} {\setlength{\pointy}{1pt}  \setlength{\pointx}{0.5pt}\def\myargA{top}\def\myargB{}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{NE}{\setlength{\pointy}{1pt}  \setlength{\pointx}{1pt}  \def\myargA{top}\def\myargB{right}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{W} {\setlength{\pointy}{0.5pt}\setlength{\pointx}{0pt}  \def\myargA{left}\def\myargB{}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{C} {\setlength{\pointy}{0.5pt}\setlength{\pointx}{0.5pt}\def\myargA{}\def\myargB{}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{E} {\setlength{\pointy}{0.5pt}\setlength{\pointx}{1pt}  \def\myargA{right}\def\myargB{}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{SW}{\setlength{\pointy}{0pt}  \setlength{\pointx}{0pt}  \def\myargA{bottom}\def\myargB{left}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{S} {\setlength{\pointy}{0pt}  \setlength{\pointx}{0.5pt}\def\myargA{bottom}\def\myargB{}}{}%
+  \expandafter\ifstrequal\expandafter{\bgimage@gravity}{SE}{\setlength{\pointy}{0pt}  \setlength{\pointx}{1pt}  \def\myargA{bottom}\def\myargB{right}}{}%
+% expand matrix to desired viewport
+  % scale first width to desired width then height to desired height
+  \setlength{\pointx}{\desiredwidth * \ratio{\pointx}{1pt}} % Assume 1x1 to start
+  \setlength{\pointy}{\desiredheight * \ratio{\pointy}{1pt}} % Assume 1x1 to start
+  % then translate 
+  \addtolength{\pointx}{\desiredxoffset}%
+  \addtolength{\pointy}{\desiredyoffset}%
+%
+  \usebackgroundtemplate{%
+  \begin{tikzpicture}%
+    \clip (0,0) rectangle (\paperwidth,\paperheight);%
+    \fill[bg] (0,0) rectangle (\paperwidth,\paperheight); % catchall bg
+    \expandafter\ifstrequal\expandafter{\bgimage@fit}{height}{% Stretech/shrink so height fits
+      \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[height=\desiredheight]{\Image}}%
+    }{%
+      \expandafter\ifstrequal\expandafter{\bgimage@fit}{width}{% Stretch/shrink so width fits
+        \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[width=\desiredwidth]{\Image}}%
+      }{%
+        \expandafter\ifstrequal\expandafter{\bgimage@fit}{all}{% Show whole image 
+          \ifbgimage@ignoreaspectratio%
+            \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[height=\desiredheight,width=\desiredwidth]{\Image}}%
+          \else%
+            \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[height=\desiredheight,width=\desiredwidth,keepaspectratio]{\Image}}%
+          \fi%
+        }{% Default cover space
+          \ifdim \scaledwidth < \desiredwidth%
+            \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[width=\desiredwidth]{\Image}}%
+          \else%
+            \pgftext[\myargA,\myargB,at={\pgfpoint{\pointx}{\pointy}}]{\includegraphics[height=\desiredheight]{\Image}}%
+          \fi%
+    }}}%
+%% Need to mask lhs|rhs as per pos=r|l because we're just placing image not trimming image and position might now therefore overlap lhs/rhs
+  \fill[bg] (0,0) rectangle (\desiredxoffset,\paperheight); % rectangle left of image
+  \fill[bg] (0,0) rectangle (\paperwidth,\desiredyoffset); % rectangle below image
+  \fill[bg] ({\desiredxoffset + \desiredwidth },0) rectangle (\paperwidth,\paperheight); %recgangle right of image
+  \fill[bg] (0,{ \desiredyoffset + \desiredheight }) rectangle (\paperwidth,\paperheight); % rectangle above image
+  \fill[fill=bg,opacity=\bgimage@transparency] (0,0) rectangle (\paperwidth,\paperheight); %The opacity of the undercolour is reciporcal of the transparency of image!
+  \end{tikzpicture}%
+  }%
+}

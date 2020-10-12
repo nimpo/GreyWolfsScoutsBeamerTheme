@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{anyfontsize}% To more closely use the right sizes for fonts
+
+\usepackage{courier}% To use courier font for monospace (better ttf/pdflatex support)
+
+% Supress math font warning for the following
+\renewcommand\textbullet{\ensuremath{\bullet}}
+\renewcommand\textasteriskcentered{\ensuremath{\bigstar}}
+\renewcommand\textdagger{\ensuremath{\dagger}}
+\renewcommand\textdaggerdbl{\ensuremath{\ddagger}}
+\renewcommand\textsection{\ensuremath{\mathsection}}
+\renewcommand\textparagraph{\ensuremath{\mathparagraph}}
+\renewcommand\textbardbl{\ensuremath{\|}}
+
+\mode<presentation>
+
+\def\blpptratio{1.2\pptratio}
+\def\Tiny{\@setfontsize{\Tiny}{14\pptratio}{15\pptratio}}
+\def\tiny{\@setfontsize{\tiny}{18\pptratio}{20\pptratio}}
+ \def\scriptsize{\@setfontsize{\scriptsize}{22\pptratio}{24\pptratio}}
+\def\footnotesize{\@setfontsize{\footnotesize}{24\pptratio}{26\pptratio}}
+ \def\small{\@setfontsize{\small}{28\pptratio}{31\pptratio}}
+ \def\normalsize{\@setfontsize{\normalsize}{32\pptratio}{35\pptratio}}
+\def\large{\@setfontsize{\large}{34\pptratio}{38\pptratio}}
+ \def\Large{\@setfontsize{\Large}{40\pptratio}{48\pptratio}}
+ \def\LARGE{\@setfontsize{\LARGE}{48\pptratio}{58\pptratio}}
+\def\huge{\@setfontsize{\huge}{54\pptratio}{64\pptratio}}
+\def\Huge{\@setfontsize{\Huge}{66\pptratio}{77\pptratio}}
+\def\Huge{\@setfontsize{\Huge}{60\pptratio}{66\pptratio}}
+
+\AtBeginDocument{\large}
+
+%Font size and weight/series selections for Scouts sizes derived as above 
+\setbeamerfont{title}{series={\fontseries{sb}\selectfont},size=\Huge}
+\setbeamerfont{frametitle}{series={\fontseries{ub}\selectfont},size=\large}
+\setbeamerfont{section title}{series={\fontseries{ub}\selectfont},size=\huge}
+\setbeamerfont{subsection title}{size=\large}
+\setbeamerfont{author}{size=\tiny}
+\setbeamerfont{title in head/foot}{size=\tiny}
+\setbeamerfont{date in head/foot}{size=\Tiny}
+\setbeamerfont{item}{size=\footnotesize}
+\setbeamerfont{subitem}{size=\scriptsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+\setbeamerfont{alerted text}{series=\bfseries}
+
+\mode
+<all>

@@ -1,0 +1,149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{beamerscoutslogo}
+
+\pgfdeclareimage[width=50mm]{smallerstackedlogowhite}{logo-stacked-white-sansborder}
+\pgfdeclareimage[width=64mm]{stackedlogowhite}{logo-stacked-white-sansborder}
+\pgfdeclareimage[width=73mm]{largelogowhite}{fleur-de-lis-marque-white}
+
+\pgfdeclareimage[width=50mm]{smallerstackedlogoblack}{logo-stacked-black-sansborder}
+\pgfdeclareimage[width=64mm]{stackedlogoblack}{logo-stacked-black-sansborder}
+\pgfdeclareimage[width=73mm]{largelogoblack}{fleur-de-lis-marque-black}
+
+\pgfdeclareimage[width=50mm]{smallerstackedlogopurple}{logo-stacked-betterpurple-sansborder}
+\pgfdeclareimage[width=64mm]{stackedlogopurple}{logo-stacked-betterpurple-sansborder}
+\pgfdeclareimage[width=73mm]{largelogopurple}{fleur-de-lis-marque-betterpurple}
+
+%Default is logo@noheadlogofalse
+\newif\iflogo@noheadlogo
+\define@key{logo}{noheadlogo}[true]{\csname logo@noheadlogo#1\endcsname}
+
+%Default is logo@noheadtextfalse
+\newif\iflogo@noheadtext
+\define@key{logo}{noheadtext}[true]{\csname logo@noheadtext#1\endcsname}
+
+%Default for logo@type is "all" i.e. fleur-de-lis atop "Scouts" atop \institute
+\def\logo@type{all}% fleur-de-lis, stacked, all
+\define@key{logo}{type}{\def\logo@type{#1}}
+
+%Default for logo@text is nothing/zilch/\@empty and if empty will use \institute
+\def\logo@text{\@empty}
+\define@key{logo}{text}{\def\logo@text{#1}}
+
+\vfuzz=30pt % to hide overfull vbox from my shoddy \logoslide code
+
+\newcommand{\logoslide}[1][]{% default is to use all on this slide with nologo.
+  \setkeys{logo}{text=,type=all,noheadlogo=false,noheadtext=false}% Set defaults
+  \setkeys{logo}{#1}% Set any options specified at call time
+% Make any other changes local via use of braces:'{' and '}'.
+  {%
+    \togglecolours% For contrast!
+%   Call \headervisibility to explicitely set visibility accorfing to this function's options
+    \iflogo@noheadtext\iflogo@noheadlogo\headervisibility[hideheadtext,hideheadlogo]\else\headervisibility[hideheadtext,hideheadlogo]\fi%
+    \else\iflogo@noheadlogo\headervisibility[hideheadlogo]\else\headervisibility\fi\fi%
+%
+    \expandafter\ifstrequal\expandafter{\logo@type}{fleur-de-lis}{%
+      \frame{%
+        \vspace{-7mm}%
+        \begin{center}%
+        \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+          \pgfuseimage{largelogoblack}%
+        }{%
+          \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+            \pgfuseimage{largelogowhite}%
+          }{%
+            \pgfuseimage{largelogopurple}%
+          }%
+        }%
+        \end{center}%
+      }%
+    }{}%
+    \expandafter\ifstrequal\expandafter{\logo@type}{stacked}{%
+      \frame{%
+        \begin{center}%
+          \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+            \pgfuseimage{stackedlogoblack}%
+          }{%
+            \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+              \pgfuseimage{stackedlogowhite}%
+            }{%
+              \pgfuseimage{stackedlogopurple}%
+            }%
+          }%
+        \end{center}%
+      }%
+    }{}%
+    \expandafter\ifstrequal\expandafter{\logo@type}{all}{%
+      \ifx\logo@text\@empty%\def\texttouse{\insertinstitute}\fi
+        \ifx\insertinstitute\@empty% show a stacked logo slide
+          \frame{%
+            \vspace{4.15mm}%
+            \begin{center}%
+              \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+                \pgfuseimage{stackedlogoblack}%
+              }{%
+                \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+                  \pgfuseimage{stackedlogowhite}%
+                }{%
+                  \pgfuseimage{stackedlogopurple}%
+                }%
+              }%
+            \end{center}%
+          }%
+        \else% %institute has value and should be shown
+          \frame{%
+            \vspace{2mm}%
+            \begin{center}%
+              \hspace{1mm}% OCD warning, woop, woop, OCD warning, woop, woop, This is not a drill! I repeat, this is not a drill. To fit the Scout Brand Template as presented in O365 I have to find 0.5mm from the centre line. Did I do somthing wrong? Have I dropped a space somewhare? Argh! 
+              \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+                \pgfuseimage{smallerstackedlogoblack}%
+              }{%
+                \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+                  \pgfuseimage{smallerstackedlogowhite}%
+                }{%
+                  \pgfuseimage{smallerstackedlogopurple}%
+                }%
+              }%
+            \end{center}%
+            \vspace{1.85mm}%
+            \begin{beamercolorbox}[dp=1cm,center,ignorebg]{institute}%
+              \huge\fontseries{eb}\selectfont\insertshortinstitute[width={\textwidth},center,respectlinebreaks]%
+            \end{beamercolorbox}%
+          }%
+        \fi%
+      \else% institute has no value but logo@text does
+        \frame{%
+          \vspace{2mm}%
+          \begin{center}%
+            \pgfuseimage{smallerstackedlogowhite}%
+          \end{center}%
+          \vspace{1.85mm}%
+          \begin{beamercolorbox}[dp=1cm,center,ignorebg]{institute}%
+            \huge\fontseries{eb}\selectfont\logo@text%
+          \end{beamercolorbox}%
+          }%
+      \fi%
+    }{}%
+  }%
+}

@@ -1,0 +1,83 @@
+% Use listings for inclustion of code here I've setup basic shell script
+\usepackage{listings} % A rich verbatum environment for code snippets
+%\usepackage{fontawesome} % For funky symbols -- didn't use it in the end
+\usepackage{multimedia} % Not sure how overleaf deals with this
+\usepackage{grffile} % Fix Filename dummies thrown out of prams
+\usepackage{tabularx,booktabs} % Use a richer tabular environment
+\usepackage{lipsum}% Rhubarb rhubarb rhubarb. Saves having to type rhubard...
+
+\usepackage{hologo}% Provides e.g. \pdfLaTeX
+\usepackage{caption}% Better figure captioning
+
+%We have arrows in the commands.tex slide deck
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
+
+%Adds a part page at \appendex command
+\usepackage{appendix}
+
+%References to footnotes
+%https://tex.stackexchange.com/questions/16866/how-can-i-use-footnotemark-with-a-ref-argument
+\usepackage{refcount}
+
+%Suppress warnings when multiple PDFs with Page Groups are included on a single page
+%https://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning#78020
+\pdfsuppresswarningpagegroup=1
+
+%Suppress syntax highlighting in comments of listing environments -- a hack
+%https://tex.stackexchange.com/questions/378307/advanced-string-highlighting-in-listings#answer-378367
+\def\bluecolorifnotalreadypurple{%
+    \extractcolorspec{.}\currentcolor
+    \extractcolorspec{purple}\stringcolor
+    \ifx\currentcolor\stringcolor\else
+        \color{blue}%
+    \fi
+}
+
+%Colourize bash script highlighting in listing environments
+\lstset{ 
+  language=bash,
+  showstringspaces=false,
+  commentstyle=\color{red}, 
+  keywordstyle=\bluecolorifnotalreadypurple,
+  breaklines=true,
+  breakatwhitespace=true,
+% Can't have this next line in overleaf no colour allowed here!?
+%  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  postbreak=\mbox{$\hookrightarrow$\space},
+  stringstyle=\color{purple},
+  moredelim=[s][\color{purple}]'',
+  morestring={**[s][\color{purple}]{<<'EOF'}{EOF}},
+  morestring={**[s][\color{purple}]{<<EOF}{EOF}},
+  basicstyle=\ttfamily,
+  numbers=left,
+  numberstyle=\tiny\color{gray}, % because america
+  numbersep=5pt
+}
+
+% Patch Listing's line number to match lines of included section of file
+%https://tex.stackexchange.com/questions/26828/first-line-number-in-lstinputlisting-environment#answer-27240
+\makeatletter
+\patchcmd{\lst@GLI@}% <command>
+  {\def\lst@firstline{#1\relax}}% <search>
+  {\def\lst@firstline{#1\relax}\def\lst@firstnumber{#1\relax}}% <replace>
+  {\typeout{listings firstnumber=firstline}}% <success>
+  {\typeout{listings firstnumber not set}}% <failure>
+\makeatother
+
+% In verbatum/lstlisting \end{frame} gets confused so can use \begin/end{slide} to safely encapsulate
+% I inadvertently solved this by using lstinputlisting in a later revision, but leaving this in in case.
+% https://tex.stackexchange.com/questions/467672/problems-with-fragile-frames-in-beamer#467675
+\newenvironment{slide}{\begin{frame}[fragile,environment=slide]}{\end{frame}}
+
+% Start the footnotemarks at 2 for each new page
+%\usepackage{perpage}
+%\MakePerPage[2]{footnote} % I prefer a dagger.
+%This sometimes causes "! LaTeX Error: Counter too large."
+%Solution: use a better per page hook
+%https://tex.stackexchange.com/questions/306396/paracol-how-to-reset-footnote-counter-every-page#306405
+\usepackage{everypage}
+\AddEverypageHook{\setcounter{footnote}{1}} % resets footnote counter on every page
+
+% Use Symbols in footnotes
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}

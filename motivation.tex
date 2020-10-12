@@ -1,0 +1,352 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\changecolours{ScoutPurple}
+\section*{Why a \LaTeX{} Beamer theme}
+\subsection{Just prep for another all section Scout Meeting}
+
+\frame{
+This is the story about how this Scouts Beamer template came into existance.
+In what follows, you'll find pictures, anicdotes, wild assertions, not a small amount of computing code and, I fancy, an embedded media file\footnote{You'll need a PDF reader that understands ``embedded'' \emph{rich} media (Adobe Reader v9+ and Okular v0.15+.  You'll also need the embedded media alongside, 'cause it's not really embedded is it!}
+}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\frame{
+\frametitle{We had a Leaders' planning meeting over Zoom.}
+\scriptsize How do we startup after a (very) extended Easter break?
+\vspace{-3mm}
+\begin{figure}
+\includegraphics[height=0.7\textheight,keepaspectratio]{Motivation/images/zoom}
+\vspace{-5mm}
+\caption{The actual\footnote{We did have a zoom meeting but it didn't look quite like this.} zoom meeting.}
+\end{figure}
+\vspace{-2mm}
+}
+}
+
+{
+\changecolours[inverse]{ScoutYellow}
+\headervisibility[hideheadlogo]
+\bgimage[position=r,gravity=E,fit=height]{Motivation/images/CoronaDoLess.pdf}
+\twocolframe[leftcol=7cm,rightcol=3cm]{%
+\Large There was\footnote[frame]{is---at time of writing.} a pandemic going on don't you know!
+
+\vspace{0.5\baselineskip}
+With no meetings, I for one was stuck inside with little more to keep me out of trouble than generating sick memes.
+
+\vspace{0.5\baselineskip}
+What \alert{were} our YMs doing?}{}
+}
+
+{
+\changecolours[inverse]{ScoutBlue}
+\bgimage[position=l,gravity=C]{Motivation/images/Okay.jpg}
+\twocolframe{}{\large District was encouraging us to hold some kind of sessions for the wellbeing of the young members.
+\par\vspace{\baselineskip}
+\alert{But what could we do?}
+}
+}
+
+{
+\changecolours[inverse]{ScoutGreen}
+\bgimage[position=l,gravity=W]{Motivation/images/cycling1}
+\twocolframe[titleright={Cycling badge}]{}{%
+I'd noticed many of our young members and their families taking to their bicycles for their daily exercise.
+
+\par\vspace{\baselineskip}
+I thought we could use this to drive through the Cyclist Activity badges across the various sections.
+}
+}
+
+\frame{
+\frametitle{So a Quiz! Quizzes work online, right?}
+Road safety and the use of roads is part of cycling.
+
+And in Manchester we have:
+\itemseps[topsepi=0.5mm,itemsepi=0.5mm]
+\begin{itemize}
+\item a lot of roads,
+\item a lot of tow paths (some accessable to bikes),
+\item a lot of dedicated and shared bike lanes,
+\item and lots of National Cycle Network routes.
+\end{itemize}
+How about a multiple guess quiz on some of our UK signage.
+}
+
+{
+\changecolours[inverse]{ScoutBlack}
+\headervisibility[hideheadtext]
+\bgimage[position=f,gravity=C,fit=all,transparency=0.7,ignoreaspectratio]{Motivation/images/GSLs.jpg}
+\frame{
+\frametitle{Also happening at the same time...}
+Scout HQ has been working on rebranding, and \mbox{23\raisebox{0.6ex}{\scriptsize rd} Manchester} has been working as a group to overhaul our web presence.
+\par%\vspace{\baselineskip}
+I thought well, can't I just use something from the Scout Brand Centre?
+}
+}
+
+\frame{
+\frametitle{Getting the information}
+\begin{itemize}
+\item I found the UK government road sign website: \href{https://www.gov.uk/guidance/traffic-sign-images}{https://www.gov.uk/guidance/traffic-sign-images}. This had
+\begin{itemize}
+\item zip files of all the signs graphics.
+\item a spreadsheet describing the road signs.
+\end{itemize}
+\item All I needed now was a way to make this into an online multiple choice quiz.
+\end{itemize}
+}
+
+\frame{
+\frametitle{Automation}
+Having identified 25 road signs that I could work with I now had the task of importing and resizing 25 images, formatting slides, and adding 25 captions.
+\par%\vspace{\baselineskip}
+But \alert{What are computers for?} ...if not to make repetitive and time consuming tasks easy?
+}
+
+\frame{
+\frametitle{Automation}
+\itemseps[topsepi=0mm,itemsepi=0mm]
+\begin{enumerate} 
+\item I considered writing a script to create slides using one of the PPTX APIs. 
+\item I also considered copying the template to Google Sheets and writing a Google App script\footnote{I'm more familiar with GoogleDocs. Moreover, I don't have Microsoft at home and the O365 PowerPoint landscape is IMHO a buggy and featureless terrain.} 
+\end{enumerate}
+\parbox{\textwidth}{I'm also more at home with \href{https://www.fsf.org/}{Free and Open Source Software}, how about something like \href{https://www.libreoffice.org/}{LibreOffice}?}
+}
+
+\frame{
+\frametitle{How about \LaTeX}
+I'd worked with \LaTeX{} before, in the world of academia. 
+I had used it to write letters, articles and documents
+and occasionally the odd slide deck for work.
+This would be a bit different though, \LaTeX{} is a typesetting tool.
+In my experience good for scientific papers and simple non-glossy stuff.
+}
+
+\subsection{Creating the slides}
+
+\begin{frame}[fragile]{But...}
+It is kind of easy to write slides, once there's a template. 
+For example, here is the \emph{code} for the last two slides:
+\tiny
+\begin{verbatim}
+\frame{
+\frametitle{How about \LaTeX}
+I'd worked with \LaTeX before, in the world of academia.
+I had used it to write letters, articles and documents
+and occasionally the odd slide deck for work.
+This would be a bit different though, \LaTeX is a typesetting tool.
+In my expreience good for scientific papers and simple non-glossy stuff.
+}
+\subsection{Creating the slides}
+\end{verbatim}
+\end{frame}
+
+\section*{Lets look at the code.}
+
+\subsection{The following section is probably not for the faint hearted.}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}{Here comes a bash script to make us some slides}
+\footnotesize
+\parbox{\textwidth}{\alert{And before you ask...} No! I didn't write the following script then execute it like some kind of crazy robot. I did this one step at a time, bit--by--bit over the course of about an hour\textsuperscript{TM\footnote{For large values of one hour\textsuperscript{TM}.}}.}
+
+\parbox{\textwidth}{I searched the web; found the stuff; converted the format of the long list from the web; downloaded the images; made a short list of signs I liked; \href{https://en.wikipedia.org/wiki/Grep}{grep}ped\footnote{\tt grep, egrep, fgrep, rgrep - print lines matching a pattern} the signs I liked into a loop where I converted my favourite signs to pdf and with a \LaTeX{} template spat out the file: {\tt include.tex}. Then I merged that file into my scoutified CERN Beamer template.  What follows is what you might get if you crush all that work into a hairy \href{https://www.gnu.org/software/bash/}{bash} script.
+\hfill
+\hyperlink{quizslides}{\beamerskipbutton{skip}}
+}
+\end{frame}
+}
+
+\begin{frame}{Breakdown of bash script to make the quiz skeleton slides...}
+\parbox{\textwidth}{Lets start by getting the {\tt Beamer} template\footnote{At the time of writing this template is only available to me in my \href{https://www.overleaf.com/project/5f1c704829d3e800016ed5c3}{overleaf.com} account and private \href{https://github.com/nimpo/GreyWolfsScoutsBeamerTheme}{github.com} repo.}. I started with a Scouty tweak to the \href{https://www.overleaf.com/latex/templates/cern-presentation-title/mgnwzmtgtvkw}{CERN Presentation template} by J\'er\^ome Belleman, but the git repository in the listing now holds the template used for this presentation:}
+\tiny
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{\small I searched the web; found the UK Government's \href{https://www.gov.uk/guidance/traffic-sign-images}{traffic sign images} webpage. The following snippet (lines 6--14) screen-scrapes the site and downloads\footnote{Here I used \href{https://curl.haxx.se/}{curl}.} the Excel file with all the road sign descriptions:}
+\tiny
+\lstinputlisting[firstline=6,lastline=14]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{\small I used \href{https://www.libreoffice.org/}{LibreOffice} to convert the MS Excel document to something a bit more universal and which we can work with. Here, in the script, a sleepy loop is required here because LibreOffice runs this command asynchronously:}
+\tiny
+\lstinputlisting[firstline=16,lastline=23]{Motivation/quizscript.sh}
+\end{frame}
+
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{We need columns 12 and 3\footnote{The filename for the encapsulated postscript version of the sign, and its ``Caption''} from the CSV file. I've used the handy tool called \href{https://packages.ubuntu.com/bionic/csvtool}{\tt csvtool}. The results will be TAB separated and saved into a {\tt .tsv} file.}
+\tiny
+\lstinputlisting[firstline=25,lastline=26]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{\small Screen-scraping the \href{https://www.gov.uk/guidance/traffic-sign-images}{gov.uk} site again we download all the signs in eps\footnote{Encapsulated postscript is widely supported vector format often used in the printing industry.} format in their zipped bundles. We'll get each zip file and unzip it into the directory {\tt SignsDL} for later.}
+\tiny
+\lstinputlisting[firstline=28,lastline=35]{Motivation/quizscript.sh}
+\end{frame}
+
+\section*{Take a break here.}
+\subsection{...and make some coffee. That's what I did.}
+\section*{Lets look at the code.}
+\setlength{\fboxsep}{0pt}
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{\small Coffee in hand, have a look through the signs and choose some nice ones. I chose these...}
+
+\parbox[c]{0.07\textwidth}{%
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/4003.7}}%
+\parbox[c]{0.93\textwidth}{\raggedright
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/2602.2}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/2603}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/2702}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/2928}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/501}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/512}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/520}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/522}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/544}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/551.2}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/552}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/555}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/562}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/670V20}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/7001}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/770}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/810}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/827.2}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/833}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/834}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/950}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/951}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/953.1V}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/956}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/957}
+\includegraphics[width=0.06\textwidth]{Motivation/Signs/T201}
+}
+
+\parbox{\textwidth}{\small Then in my script I set a variable to hold the label for each:}
+
+\tiny
+\lstinputlisting[firstline=37,lastline=38]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{Convert the nice ones into a format we can use\footnote{Encapsulated Postscript is fine for \LaTeX{} but is often in a CMYK colourspace. We want an RGB colourspace for screens (not print), and since I'm using \hologo{pdfLaTeX} I'll convert to PDF format.}. \href{https://inkscape.org/}{Inkscape} can do this in batchmode.}
+\tiny
+\lstinputlisting[firstline=40,lastline=49]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+The next\footnote{Next but one.} slide shows how to make the slide template. (It needs a slide all to itself.)
+
+The resulting template will be used like a \href{https://en.wikipedia.org/wiki/Mail_merge}{mail merge}. However, instead of creating a letter template to later \emph{merge} with a database of multiple customers' details, we've got a slide template, multiple sign images and a look up table for each sign's corresponding captions.
+\end{frame}
+
+{
+\changecolours{ScoutPink}
+\bgimage[gravity=C,position=r]{Motivation/images/cat.jpg}
+\twocolframe{Oh and the {\tt cat} you're about to see isn't grumpy.\par It just means spit the following stuff out ( and the '>' sends it to a file).}{}
+}
+
+\begin{frame}
+\tiny
+\lstinputlisting[firstline=51,lastline=74]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\footnotesize Now we do the \emph{mail merge}--esque bit, looping over the {\tt \$SIGNS} we chose earlier. Line 77 just empties the file {\tt include.tex}. Then in a loop (78--83), I've used \href{https://en.wikipedia.org/wiki/AWK}{\tt awk} to extract each caption from the tsv file. Then using \href{https://en.wikipedia.org/wiki/Sed}{\tt sed}, we place the sign in the template's @LBL@ placeholder and then the real caption in a random position in the enumerated list e.g. @1@ to form one answer of the multiple guess.
+\tiny
+\lstinputlisting[firstline=76,lastline=83]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\parbox{\textwidth}{\small The next slide shows how to make {\tt main.tex}, the primary file in the creation of the slides. Here's an overview:}
+
+\small
+\begin{description}[lines 96--103]
+\item[line 90] Select the \href{https://ctan.org/pkg/beamer}{Beamer} document class.
+\item[line 91] Select my ``scouts'' theme
+\item[lines 92--95] Give \LaTeX{} the author and other {\tt \textbackslash{}titlepage} info
+\item[lines 96--103] Holds the actual content of the slides.
+\begin{description}[103,104]
+\item[98] The title page slide
+\item[100] Hwew we include the content from {\tt include.tex}
+\item[101,102] Trailing slides: thank you and copyright notice.
+\end{description}
+\end{description}
+\end{frame}
+
+\begin{frame}{Breakdown of bash script (continued)...}
+\tiny
+\lstinputlisting[firstline=88,lastline=104]{Motivation/quizscript.sh}
+\end{frame}
+
+\begin{frame}{Compile it!}
+Now all that's left to do is edit {\tt include.tex} to add the alternative answers to each slide/frame and any final tweaks. (I added two other versions of the county boundary signs and changed the NCN route from 14 to route 66.)
+\begin{center}
+\parbox{0.1\textwidth}{
+\raggedleft
+\includegraphics[width=0.1\textwidth]{Motivation/Signs/extra/2602.2-66}
+}
+\parbox{0.2\textwidth}{%
+\centering%
+\includegraphics[width=0.2\textwidth]{Motivation/Signs/2928}\\
+\includegraphics[width=0.2\textwidth]{Motivation/Signs/extra/2928b}\\
+\includegraphics[width=0.14\textwidth]{Motivation/Signs/extra/2928c}
+}
+\end{center}
+
+Finally compile the code with: {\tt latexmk} and out should pop a main.pdf
+\end{frame}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}[label=quizslides]
+\small
+Here's an animation\footnote{The PDF reader needs access to the media file.} of the slideshow as it was:
+\begin{center}
+\movie[width=0.5\textwidth]{\includegraphics[width=0.5\textwidth]{Motivation/movies/HighwayCode.png}\hspace{-0.48\textwidth}\raisebox{\depth}{Click image to start}}{Motivation/movies/HighwayCode.mp4}
+\end{center}
+You'll perhaps notice that the template I used in those slides was slightly different to this presentation.
+\end{frame}
+}
+
+{
+\setbeamerfont{footnote}{size=\Tiny}
+\begin{frame}
+\scriptsize
+For completeness here's an animation of what all that scripting stuff above now spits out:
+\begin{center}
+\movie[width=0.5\textwidth]{\includegraphics[width=0.5\textwidth]{Motivation/movies/HighwayCodeBikeQuizScripted.png}\hspace{-0.48\textwidth}\raisebox{\depth}{Click image to start}}{Motivation/movies/HighwayCodeBikeQuizScripted.mp4}
+\end{center}
+And that's what the template it looks like at the time of writing. 
+
+With a couple of tweaks for example using the {\tt \textbackslash{}bgcolor} and {\tt \textbackslash{}twocolframe} macros the presentaion might look a bit like the one in \hyperlink{Part6}{\color{ScoutPurple}the appendix}.
+
+The scripts can be found bundled with this theme: \href{file:Motivation/quizscript.sh}{\tt ./Motivation/quizscript.sh} and the modified updated one \href{file:Motivation/quizscript2.sh}{\tt ./Motivation/quizscript2.sh}.
+\end{frame}
+}

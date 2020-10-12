@@ -1,0 +1,78 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{beamerscoutstwocolframe}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% twocolframe
+%%%%%%%%%%%%%
+\define@key{twocol}{leftcol}{\def\twocol@leftcol{#1}}
+\def\twocol@leftcol{5cm}
+\define@key{twocol}{rightcol}{\def\twocol@rightcol{#1}}
+\def\twocol@rightcol{5cm}
+\define@key{twocol}{title}{\def\twocol@title{#1}}
+\def\twocol@title{\@empty}
+\define@key{twocol}{titleright}{\def\twocol@titleright{#1}}
+\def\twocol@titleright{\@empty}
+\define@key{twocol}{titleleft}{\def\twocol@titleleft{#1}}
+\def\twocol@titleleft{\@empty}
+
+% Macro to make basic two column frame c.f. Scout Brand Centre PPT Template different to \multicols{2} 
+\newcommand{\twocolframe}[3][]{%
+  \setkeys{twocol}{leftcol=5cm,rightcol=5cm,titleleft=,titleright=,title=}% Defaults
+  \setkeys{twocol}{#1}% Set Options 
+
+  \setbeamertemplate{frametitle}{%
+    \nointerlineskip%
+    \begin{beamercolorbox}[wd=13cm,ht=2.0ex,dp=0.6ex]{frametitle}%
+      \insertframetitle%
+    \end{beamercolorbox}%
+  }%
+  \begin{frame}%
+  \ifx\twocol@title\empty%
+    \ifx\twocol@titleright\empty%
+      \ifx\twocol@titleleft\empty% No titles at all: do nothing
+      \else% Just left title (right title is blank)
+        \frametitle{\parbox{\twocol@leftcol}{\twocol@titleleft}\hfill\parbox{\twocol@rightcol}{\twocol@titleright}}%
+      \fi%
+    \else% Just right title or both left and right titles
+      \frametitle{\parbox{\twocol@leftcol}{\twocol@titleleft}\hfill\parbox{\twocol@rightcol}{\twocol@titleright}}%
+    \fi%
+  \else% A main title (overrides left and right titles if specified
+    \frametitle{\twocol@title}%
+  \fi%
+  \vspace{3mm}%
+  \begin{columns}[t]%
+  \begin{column}[t]{\twocol@leftcol}%
+  \footnotesize%
+  #2%
+  \end{column}%
+  \begin{column}{0cm}%
+  \end{column}%
+  \begin{column}[t]{\twocol@rightcol}%
+  \footnotesize%
+  #3%
+  \end{column}%
+  \end{columns}%
+  \end{frame}%
+}

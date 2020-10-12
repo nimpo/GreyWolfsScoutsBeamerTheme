@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aspectratio=169,utf8,t]{beamer}
+% I've put some non-scout related preamble specific to this demo
+% in the file oddsAndEnds.tex. For example code to markup bash scripts.
+\input{oddsAndEnds.tex}
+
+
+\usetheme{scouts}% Grey Wolf's Scouts Beamer Theme creates by Mike Jones
+
+% The optional `\author` macro defines the author and is displayed
+% in the slide produced by the `\titlepage` command.
+\author{Grey Wolf}
+
+% The optional `\institute` macro defines the author and is displayed
+% in the slide produced by the `\titlepage` command. It also provides
+% the default text for the macro \logoslide.
+\institute{\href{https://mansouthscouts.org.uk/our-groups/23rdManchester}{23rd~Manchester}
+\\\href{https://mansouthscouts.org.uk/our-groups/23rdManchester}{(Birch~with~Fallowfield)}}
+
+% The optional `\title` macro defines the title and is displayed
+% in the slide produced by the `\titlepage` command. The '\title'
+% will be shown in the headline at the top left of all other slides
+% unless disabled by the \NNNNNN macro.
+\title{Do~more. Share~more. Be~more.}
+
+% The '\subtitle' macro, if specified, will add a smaller subtitle 
+% below the main one, and will not be displayed in any of the other slides.
+% NB this additional to and not in the published Scouts PPT Template
+%\subtitle{Subtitle goes here if needed}
+
+% Optional `\date` macro will display a custom free text date on the
+% all of the slides' footer. If omitted today's date will be used.
+%\date{2020-07-25}
+
+
+\begin{document}
+\headervisibility[combined,hidepartnum]
+\logoslide[noheadlogo]
+
+\begin{frame}
+\begin{abstract}
+What follows is a test, a demonstration, an exploration and some documentation about how this Beamer template/theme.  It is split into separate parts (listed below) and covers why I created this theme,\footnote{In \LaTeX{}'s Beamer document class, a theme is essentially a template.} how to use it, a reproduction of the Scout Branding Centre's Powerpoint slides, some test slides and an example walkthrough from the Beamer documentation.
+\end{abstract}
+\end{frame}
+
+\frame{\frametitle{What's Coming up...}\tableofcontents[onlyparts]}
+
+\title{Do~more. Share~more. Be~more.}
+\part{How did this template come about?}
+\input{motivation.tex}
+
+\changecolours{ScoutPurple}
+\title{Code more. Share~more. Free~software.} 
+\part{Using the theme}
+\input{commands}
+
+\changecolours{ScoutPurple}
+\title{Do~more. Share~more. Be~more.}
+\headervisibility[separate]
+\part{Recreating the Scout Branding Centre's PPT/POT template using this Beamer theme.}
+\input{scouttemplate} % Attempt to follow Scouts PPTx slide template
+
+\headervisibility
+\title{Do~more. Share~more. RGB~more.}
+\part{Testing the colours}
+\input{colours}       % Basic unit tests with different Scout Colours
+
+\changecolours{ScoutPurple}
+\title{Do~more. Share~more. BC~more.}
+\part{Recreating the Beamer example Euclid’s Presentation in this theme}
+\input{euclid}        % Attempt to follow beamer's example setup from manual
+
+\appendix
+
+\title{Do more. Cycle more. Be more.}
+\part{Highway Code Example}
+\graphicspath{{Motivation/Signs/}{Motivation/Signs/extra/}{Signs/}} % Where are my signs
+\logoslide[noheadlogo,type=stacked]
+\frame[plain]{\titlepage}
+\renewcommand*{\theenumii}{\Alph{enumii}}
+\input{Motivation/SignQuiz/include.tex}
+\section{That's all folks!}
+\frame{The images in this presentation are Crown Copyright and are licenced for use in this scout quiz context.}
+
+\end{document}

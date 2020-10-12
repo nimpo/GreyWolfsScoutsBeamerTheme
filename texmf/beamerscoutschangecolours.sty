@@ -1,0 +1,449 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\ProvidesPackage{beamerscoutschangecolours}
+
+% This file contatins definitions for \changecolours[]{} \togglecolours and \headervisibility macros
+
+\def\scouts@currentcolour{ScoutPurple}
+%Define KV and default values (from ScoutPurple)
+\newif\ifcolours@inverse
+\def\colours@alert{ScoutPurple}
+\def\colours@head{ScoutPurple}% Explicite and different to titlelike
+\def\colours@foot{ScoutPurple}
+\def\colours@text{ScoutBlack}
+\def\colours@logo{ScoutPurple}
+\def\colours@href{ScoutPurple}
+\def\colours@eg{ScoutGreen}
+\def\colours@proof{ScoutRed}
+\def\colours@bullet{ScoutPurple}
+\def\colours@titles{ScoutBlack}
+\def\colours@subtitles{ScoutBlack}
+\def\colours@bg{ScoutWhite}
+\def\colours@sectionlogo{}
+\def\colours@branch{}
+\def\colours@bulletshape{}
+%Macros to set keys:
+\define@key{colours}{inverse}[true]{\csname colours@inverse#1\endcsname}% Booleans are tricksey
+\define@key{colours}{alert}{\def\colours@alert{#1}}
+\define@key{colours}{head}{\def\colours@head{#1}}
+\define@key{colours}{foot}{\def\colours@foot{#1}}
+\define@key{colours}{text}{\def\colours@text{#1}}
+\define@key{colours}{logo}{\def\colours@logo{#1}}
+\define@key{colours}{href}{\def\colours@href{#1}}
+\define@key{colours}{eg}{\def\colours@eg{#1}}
+\define@key{colours}{proof}{\def\colours@proof{#1}}
+\define@key{colours}{bullet}{\def\colours@bullet{#1}}
+\define@key{colours}{titles}{\def\colours@titles{#1}}
+\define@key{colours}{subtitles}{\def\colours@subtitles{#1}}
+\define@key{colours}{bg}{\def\colours@bg{#1}}
+\define@key{colours}{sectionlogo}{\def\colours@sectionlogo{#1}}
+\define@key{colours}{branch}{\def\colours@branch{#1}}
+\define@key{colours}{bulletshape}{\def\colours@bulletshape{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Helper macro to toggle between inverse colour and non-inverse colour slide
+%
+% (Can't toggle overridden colours, so won't.
+% This just calls the changecolour macro with no options other than the
+% opposite "inverse" than is currently in force. If optional tweaks to colours
+% are required then a call to changcolours with explicit wishes is necessary.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\togglecolours}{%
+% Can't think of a better way to expand the currentcolour macro to its value in order
+% to avoid circular dependency in \changecolours, so am explicitely edef-ing it to temp macro
+\mode<beamer>{% Only do this if in beamer mode
+  \edef\temp@scouts@currentcolour{\scouts@currentcolour}%
+  \ifcolours@inverse\changecolours{\temp@scouts@currentcolour}\else\changecolours[inverse]{\temp@scouts@currentcolour}\fi%
+}%
+}
+
+% Helper macro to set/unset visibility of the header logo and header text
+\newif\ifheader@hideheadtext
+\newif\ifheader@showheadtext
+\newif\ifheader@hideheadlogo
+\newif\ifheader@showheadlogo
+\newif\ifheader@hidetitle
+\newif\ifheader@showtitle
+\newif\ifheader@hideparts
+\newif\ifheader@showparts
+\newif\ifheader@hidepartnum
+\newif\ifheader@showpartnum
+\newif\ifheader@hidesections
+\newif\ifheader@showsections
+\newif\ifheader@combined
+\newif\ifheader@separate
+\define@key{header}{hideheadtext}[true]{\csname header@hideheadtext#1\endcsname\ifheader@hideheadtext\header@showheadtextfalse\else\header@showheadtexttrue\fi}
+\define@key{header}{showheadtext}[true]{\csname header@showheadtext#1\endcsname\ifheader@showheadtext\header@hideheadtextfalse\else\header@hideheadtexttrue\fi}
+\define@key{header}{hideheadlogo}[true]{\csname header@hideheadlogo#1\endcsname\ifheader@hideheadlogo\header@showheadlogofalse\else\header@showheadlogotrue\fi}
+\define@key{header}{showheadlogo}[true]{\csname header@showheadlogo#1\endcsname\ifheader@showheadlogo\header@hideheadlogofalse\else\header@hideheadlogotrue\fi}
+\define@key{header}{hidetitle}[true]{\csname header@hidetitle#1\endcsname\ifheader@hidetitle\header@showtitlefalse\else\header@showtitletrue\fi}
+\define@key{header}{showtitle}[true]{\csname header@showtitle#1\endcsname\ifheader@showtitle\header@hidetitlefalse\else\header@hidetitletrue\fi}
+\define@key{header}{hideparts}[true]{\csname header@hideparts#1\endcsname\ifheader@hideparts\header@showpartsfalse\else\header@showpartstrue\fi}
+\define@key{header}{showparts}[true]{\csname header@showparts#1\endcsname\ifheader@showparts\header@hidepartsfalse\else\header@hidepartstrue\fi}
+\define@key{header}{hidepartnum}[true]{\csname header@hidepartnum#1\endcsname\ifheader@hidepartnum\header@showpartnumfalse\else\header@showpartnumtrue\fi}
+\define@key{header}{showpartnum}[true]{\csname header@showpartnum#1\endcsname\ifheader@showpartnum\header@hidepartnumfalse\else\header@hidepartnumtrue\fi}
+\define@key{header}{hidesections}[true]{\csname header@hidesections#1\endcsname\ifheader@hidesections\header@showsectionsfalse\else\header@showsectionstrue\fi}
+\define@key{header}{showsections}[true]{\csname header@showsections#1\endcsname\ifheader@showsections\header@hidesectionsfalse\else\header@hidesectionstrue\fi}
+\define@key{header}{combined}[true]{\csname header@combined#1\endcsname\ifheader@combined\header@separatefalse\else\header@separatetrue\fi}
+\define@key{header}{separate}[true]{\csname header@separate#1\endcsname\ifheader@separate\header@combinedfalse\else\header@combinedtrue\fi}
+\newcommand{\headervisibility}[1][showheadtext, % show headline text; "hideheadtext" to disable
+                                  showheadlogo, % show logo in headline; "hideheadlogo" to disable
+                                  showtitle,    % show title in headline text; "hidetitle" to disable
+                                  showparts,    % show parts in headline text; "hideparts" to disable
+                                  showpartnum,  % show part number in headline text; "hidepartnum" to disable
+                                  showsections, % show section in headline text; "hidesections" to disable
+                                  separate      % don't show part and section together in headline text; "combined" to enable
+                                 ]{\setkeys{header}{#1}} %(options will be executed in the order they arrive.)
+\headervisibility% Set defaults now
+
+\newcommand{\changecolours}[2][]{%
+% For to let others know the base colour for this execution e.g. togglecolours
+%  \def\scouts@currentcolour{ScoutPurple}
+  \edef\scouts@currentcolour{#2}%
+%
+% Contents:
+% 1, Set initial default options as if package is just initialised
+% 2, Read in options so we can read inverse state requested
+% 3, Set default inverse colour options
+% 4, Set colours as per #2
+% 5, Re-read in optional keys to overwrite defaults
+% 6, Redefine colours used by beamer
+% 7, redefine headline and footline
+%
+% 1, Set initial default inverse state option and branch text to ""
+  \setkeys{colours}{inverse=false,branch=}%  
+%
+% 2, Read in options so we can determine the requested inverse opition if any
+  \setkeys{colours}{#1}%
+% Override colours if in handout or transparency mode.
+  \mode<handout|trans> {%
+%   First Check and set Section logos
+    \setkeys{colours}{sectionlogo=}% Reset any handout/trans specified section logo; you can only have in handouts/trans if specified via #2
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutBeavers}   {\setkeys{colours}{sectionlogo=logobeaversblack}}{}%
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutCubs}      {\setkeys{colours}{sectionlogo=logocubsblack}}{}%
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutScouts}    {\setkeys{colours}{sectionlogo=logoscoutsblack}}{}%
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutExplorers} {\setkeys{colours}{sectionlogo=logoexplorersblack}}{}%
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutNetwork}   {\setkeys{colours}{sectionlogo=logonetworkblack}}{}%
+    \ifx\colours@branch\empty% Only override the branch if not set in #1
+      \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutSeaScouts} {\setkeys{colours}{branch=Sea Scouts}}{}%
+      \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutAirScouts} {\setkeys{colours}{branch=Air Scouts}}{}%
+    \fi%
+    \edef\scouts@currentcolour{ScoutPurple}% Use Purple and black colour scheme for handouts.
+    \setkeys{colours}{inverse=false}% No inverse colour slides in handouts.
+  }%
+%
+% 3, Set default colour options based on known inverse option
+  \ifcolours@inverse% Handle Default inverse now that \colours@inverse has been set in step 2
+    \setkeys{colours}{alert=ScoutWhite,head=ScoutWhite,%
+                      foot=ScoutWhite,text=ScoutWhite,logo=ScoutWhite,%
+                      href=ScoutWhite,eg=ScoutWhite,proof=ScoutWhite,%
+                      bullet=ScoutWhite,titles=ScoutWhite,%
+                      subtitles=ScoutWhite,bg=ScoutPurple,%
+                      bulletshape={\raisebox{0.5ex}{\textbullet}}}%
+  \else
+    \setkeys{colours}{alert=ScoutPurple,head=ScoutBlack,%
+                      foot=ScoutBlack,text=ScoutBlack,logo=ScoutPurple,%
+                      href=ScoutPurple,eg=ScoutGreen,proof=ScoutRed,%
+                      bullet=ScoutPurple,titles=ScoutPurple,%
+                      subtitles=ScoutBlack,bg=ScoutWhite,%
+                      bulletshape={\raisebox{0.5ex}{\textbullet}}}%
+  \fi%
+  \mode<beamer>{\setkeys{colours}{sectionlogo=}}% special case: only reset sectionlogo for "beamer" mode because usually set by #2 
+%
+% 4, Set colours as per #2
+%
+  \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutPurple}{%
+    \ifcolours@inverse%
+      %Not needed as set in step 1 and we don't care if step 2 overrides. 
+    \else%
+      %Not needed as set in step 1 and we don't care if step 2 overrides.
+    \fi%
+  }%Shall I nest these? Seems the right thing to do in the absence of \case blah \esac
+  {%ELSEIF (1)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutRed}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutRed,subtitles=ScoutPink}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutRed,href=ScoutRed,eg=ScoutGreen,proof=ScoutBlue,bullet=ScoutRed}%
+    \fi%
+    }%
+  {%ELSEIF (2)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutBlue}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlue,subtitles=ScoutYellow}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutBlue,href=ScoutBlue,eg=ScoutGreen,proof=ScoutRed,bullet=ScoutBlue}%
+    \fi%
+    }%
+  {%ELSEIF (3)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutGreen}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutGreen,subtitles=ScoutNavy}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutGreen,href=ScoutGreen,eg=ScoutBlue,proof=ScoutRed,bullet=ScoutGreen}%
+    \fi%
+    }%
+  {%ELSEIF (4)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutBlack}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlack}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutBlack,href=ScoutBlack,eg=ScoutBlack,proof=ScoutBlack,bullet=ScoutBlack}%
+    \fi%
+    }%
+  {%ELSEIF (5)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutWhite}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutBlack,href=ScoutBlack,eg=ScoutBlack,proof=ScoutBlack,bullet=ScoutBlack}%
+    \else%
+      \setkeys{colours}{bg=ScoutBlack}%
+    \fi%
+    }%
+  {%ELSEIF (6)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutTeal}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutTeal}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutTeal,href=ScoutTeal,eg=ScoutBlue,proof=ScoutGreen,bullet=ScoutTeal}%
+    \fi%
+    }%
+  {%ELSEIF (7)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutNavy}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutNavy}%
+    \else%
+      \setkeys{colours}{logo=ScoutBlack}%
+      \setkeys{colours}{alert=ScoutNavy,href=ScoutNavy,eg=ScoutBlue,proof=ScoutBlack,bullet=ScoutNavy}%
+    \fi%
+    }%
+  {%ELSEIF (8)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutYellow}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{alert=ScoutNavy,head=ScoutBlack,%
+                        foot=ScoutBlack,text=ScoutBlack,logo=ScoutBlack,%
+                        href=ScoutNavy,eg=ScoutBlack,proof=ScoutBlack,%
+                        bullet=ScoutBlack,titles=ScoutBlack,bg=ScoutYellow,sectionlogo=}%
+    \else%
+      \setkeys{colours}{alert=ScoutYellow,head=ScoutYellow,%
+                        foot=ScoutYellow,text=ScoutWhite,logo=ScoutWhite,%
+                        href=ScoutYellow,eg=ScoutYellow,proof=ScoutYellow,%
+                        bullet=ScoutYellow,titles=ScoutYellow,bg=ScoutBlack,sectionlogo=}%
+    \fi%
+    }%
+  {%ELSEIF (9)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutPink}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{alert=ScoutBlack,head=ScoutBlack,%
+                        foot=ScoutBlack,text=ScoutBlack,logo=ScoutBlack,%
+                        href=ScoutNavy,eg=ScoutBlack,proof=ScoutBlack,%
+                        bullet=ScoutBlack,titles=ScoutBlack,bg=ScoutPink,sectionlogo=}%
+    \else%
+      \setkeys{colours}{alert=ScoutPink,head=ScoutPink,%
+                        foot=ScoutPink,text=ScoutWhite,logo=ScoutWhite,%
+                        href=ScoutPink,eg=ScoutPink,proof=ScoutPink,%
+                        bullet=ScoutPink,titles=ScoutPink,bg=ScoutBlack,sectionlogo=}%
+    \fi%
+    }%
+  {%ELSEIF (10)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutScouts}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutScouts,sectionlogo=logoscoutswhite}%
+    \else%
+      \setkeys{colours}{alert=ScoutScouts,href=ScoutScouts,eg=ScoutBlue,proof=ScoutRed,bullet=ScoutScouts,sectionlogo=logoscouts}%
+    \fi%
+    }%
+  {%ELSEIF (11)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutCubs}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{logo=ScoutWhite,bg=ScoutGreen,sectionlogo=logocubswhite}%
+    \else%
+      \setkeys{colours}{alert=ScoutGreen,href=ScoutGreen,eg=ScoutBlue,proof=ScoutRed,bullet=ScoutGreen,titles=ScoutGreen,sectionlogo=logocubs}%
+    \fi%
+    }%
+  {%ELSEIF (12)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutBeavers}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlue,sectionlogo=logobeaversmulti}%
+    \else%
+      \setkeys{colours}{alert=ScoutBlue,href=ScoutBlue,eg=ScoutGreen,proof=ScoutRed,bullet=ScoutBlue,titles=ScoutBlue,sectionlogo=logobeavers}%
+    \fi%
+    }%
+  {%ELSEIF (13)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutExplorers}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlack,sectionlogo=logoexplorerswhite}%
+    \else%
+      \setkeys{colours}{sectionlogo=logoexplorers}%
+    \fi%
+    }%
+  {%ELSEIF (14)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutNetwork}{%
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlack,sectionlogo=logonetworkwhite}%
+    \else%
+      \setkeys{colours}{sectionlogo=logonetwork}%
+    \fi%
+    }%
+  {%ELSEIF (15)
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutSeaScouts}{%
+    \setkeys{colours}{branch=Sea Scouts}
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutNavy}%
+    \else%
+      \setkeys{colours}{alert=ScoutNavy,head=ScoutNavy,foot=ScoutNavy,text=ScoutNavy,href=ScoutPurple,eg=ScoutBlue,titles=ScoutNavy,proof=ScoutRed,bullet=ScoutNavy}%
+    \fi%
+    }%
+  {%ELSEIF (16) I'm going for Red White Blue feel like the Air Force roundel
+    \expandafter\ifstrequal\expandafter{\scouts@currentcolour}{ScoutAirScouts}{%
+    \setkeys{colours}{branch=Air Scouts}
+    \ifcolours@inverse%
+      \setkeys{colours}{bg=ScoutBlue,subtitles=ScoutRed}%
+    \else%
+      \setkeys{colours}{alert=ScoutRed,head=ScoutBlue,foot=ScoutBlue,text=ScoutBlue,href=ScoutRed,eg=ScoutRed,titles=ScoutBlue,subtitles=ScoutRed,proof=ScoutBlack,bullet=ScoutRed}%
+    \fi%
+    %For fun use an actual RAF roundel
+    \setkeys{colours}{bulletshape={\tikz{\node[fill=white,circle,inner sep=0,minimum size=3.2mm] {}; \node[fill=RAFBlue,circle,inner sep=0,minimum size=3mm] {}; \node[fill=white,circle,inner sep=0,minimum size=2mm] {}; \node[fill=RAFRed,circle,inner sep=0,minimum size=1mm] {};}}}%
+    }%
+  {%ELSE (17)
+    \PackageError{Beamer theme: Scouts}{Invalid argument: "\scouts@currentcolour" is not a valid Colour/Section}%
+    {Valid arguments to changecolour are: ScoutPurple, ScoutRed, ScoutBlue, ScoutGreen, ScoutTeal, ScoutYellow, ScoutPink, ScoutNavy, ScoutBlack, ScoutWhite, ScoutScouts, ScoutCubs, ScoutBeavers, ScoutExplorers, ScoutNetwork, ScoutSeaScouts or ScoutAirScouts.}%
+}}}}} }}}}} }}}}} }}%ENDIF (17)
+%
+% 5, Re-read in optional keys to overwrite defaults
+% Only in beamer mode though!
+\mode<beamer>{\setkeys{colours}{#1}}%
+%
+% 6, Redefine colours used by beamer
+%
+  \setbeamercolor{normal text}{fg=\colours@text}\usebeamercolor[fg]{normal text}%
+  \setbeamercolor{background canvas}{fg=\colours@text,bg=\colours@bg}%
+  \setbeamercolor{structure}{fg=\colours@text,bg=}%
+  \setbeamercolor{title page}{fg=\colours@titles,bg=}%
+  \setbeamercolor{institute}{fg=\colours@titles,bg=}%
+  \setbeamercolor{subsection title}{fg=\colours@subtitles,bg=}%
+  \setbeamercolor{subtitle}{fg=\colours@subtitles,bg=}%
+  \setbeamercolor{itemize item}{fg=\colours@bullet,bg=}%
+  \setbeamertemplate{itemize items}{\colours@bulletshape}
+%  \setbeamercolor*{enumerate item}{fg=\colours@bullet,bg=}%
+%  \setbeamercolor*{enumerate subitem}{fg=\colours@bullet,bg=}%
+%  \setbeamercolor*{enumerate subsubitem}{fg=\colours@bullet,bg=}%
+  \setbeamercolor{item projected}{bg=\colours@bullet,fg=\colours@bg}
+%  \setbeamercolor{itemize subitem}{fg=\colours@text}%
+  \setbeamercolor{alerted text}{fg=\colours@alert,bg=}%
+  \setbeamercolor{example text}{fg=\colours@eg,bg=}%
+  \setbeamercolor{titlelike}{fg=\colours@titles,bg=}%
+  \setbeamercolor{abstract title}{fg=\colours@titles,bg=}%
+  \setbeamercolor{author}{fg=\colours@titles,bg=}%
+  \setbeamercolor{headline}{fg=\colours@head,bg=}%
+  \setbeamercolor{footline}{fg=\colours@foot,bg=}%
+%  \setbeamercolor{href}{fg=\colours@href} % Not part of template
+%  \setbeamercolor{proof}{fg=\colours@proof} % Not part of template
+  \setbeamercolor{title in head/foot}{fg=\colours@head,bg=}%
+%  \setbeamercolor{foot}{fg=\colours@foot} % Not part of template
+  \setbeamercolor{date in head/foot}{fg=\colours@head,bg=}%
+  \setbeamercolor{section in head/foot}{fg=\colours@head,bg=}%
+  \setbeamercolor{subsection in head/foot}{fg=\colours@head,bg=}%
+%  \hypersetup{linkcolor=\colours@href,citecolor=\colours@href,filecolor=\colours@href,urlcolor=\colours@href}
+  \hypersetup{allcolors=.,urlcolor=\colours@href}%
+%
+% 7, redefine headline and footline
+  \setbeamertemplate{headline}{%
+    \begin{beamercolorbox}[wd=\paperwidth,dp=3.5mm,ht=11mm,leftskip=\shortmargin,rightskip=\shortmargin]{headline}%
+      \usebeamerfont{title in head/foot}%
+% hidetitle hideparts hidesections showpartsandsections
+      \ifheader@hideheadtext\hfill\else%
+        \parbox[b][6.2mm][t]{\paperwidth-40mm}{%
+          \ifheader@hidetitle\else\raggedright\insertshorttitle\fi\\%
+          \ifheader@hideparts% Just show sections if allowed
+            \ifheader@hidesections% Show nothing!
+            \else% Show only sections
+              {\fontseries{ub}\selectfont\insertsectionhead}%
+            \fi%
+          \else% Show parts as well as other stuff
+            \ifnum\c@part = 0 \def\tmppartnum{} \else\def\tmppartnum{\ifheader@hidepartnum\else Part~\insertpartnumber:~\fi}\fi% Sets the macro to show if showpartnum is true
+            \ifheader@combined% Show at same time
+% https://tex.stackexchange.com/questions/204010/conditionally-print-subsection-in-beamer#483337
+% \insertsectionhead has internal \href; So the hack here is to measure box size of \insertsectionhead
+              \setbox0=\hbox{\insertsectionhead\unskip}\ifdim\wd0=0pt% There's no current section
+                {\fontseries{ub}\selectfont\tmppartnum\insertshortpart}%
+              \else% There's a current section
+                \setbox0=\hbox{\insertshortpart\unskip}\ifdim\wd0=0pt
+%                \ifx\insertshortpart\@empty% There's no part defined so just print section
+                  {\fontseries{ub}\selectfont\insertsectionhead}%
+                \else% Both Part and section are there so 
+                  {\fontseries{ub}\selectfont\tmppartnum\mbox{\insertshortpart~ --} \mbox{\insertsectionhead}}%
+                \fi%
+              \fi%
+            \else%
+              \ifheader@hidesections% Show only parts!
+                {\fontseries{ub}\selectfont\tmppartnum\insertshortpart}%
+              \else% Show both parts and sections separately!
+                \ifx\insertsectionhead\@empty% Show Part if no section available
+                  {\fontseries{ub}\selectfont\tmppartnum\insertshortpart}%
+                \else% Show Section in preference to Part if available
+                  {\fontseries{ub}\selectfont\insertsectionhead}%
+                \fi%
+              \fi%
+            \fi%
+          \fi%
+        }%
+      \fi%
+      \hfill%
+      \ifheader@hideheadlogo\hfill\else%
+        \begin{pgfpicture}{0cm}{0cm}{23mm}{15mm}%
+          \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutBlack}{%
+            \pgfputat{\pgfxy(0,0)}{\pgfbox[left,base]{\pgfuseimage{logolinearblack}}}%
+%            \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{logolinearblack}%
+          }{%\else%
+            \expandafter\ifstrequal\expandafter{\colours@logo}{ScoutWhite}{%
+              \pgfputat{\pgfxy(0,0)}{\pgfbox[left,base]{\pgfuseimage{logolinearwhite}}}%
+%              \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{logolinearwhite}%
+            }{%\else%
+              \pgfputat{\pgfxy(0,0)}{\pgfbox[left,base]{\pgfuseimage{logolinearpurple}}}%
+%              \usebeamerfont{date in head/foot}\insertshortdate\hfill\pgfuseimage{logolinearpurple}%
+            }%\fi%
+          }%\fi%
+%          \pgfputat{\pgfxy(0,0)}{\pgfbox[left,base]{\pgfuseimage{\colours@logo}}}%
+          \ifx\colours@branch\empty\else%
+            \pgfputat{\pgfxy(0,-0.15)}{\pgfbox[left,base]{\scalebox{1.1}{\textcolor{\colours@logo}{\textbf{\Tiny\colours@branch}}}}}%
+          \fi%
+        \end{pgfpicture}%
+      \fi%
+    \end{beamercolorbox}%
+  }%
+  \setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\paperwidth,dp=\shortmargin,ht=7.4mm,leftskip=\shortmargin,rightskip=\shortmargin]{footline}%
+      \usebeamerfont{title in head/foot}%
+      \hfill%
+      \expandafter\ifx\colours@sectionlogo\empty\else\pgfuseimage{\colours@sectionlogo}\fi%
+    \end{beamercolorbox}%
+  }%
+}

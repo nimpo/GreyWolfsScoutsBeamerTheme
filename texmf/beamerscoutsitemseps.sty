@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Provides a wat to configure spaces in and around \itemise and \enumerate.
+% Starting point was a tex.stackexchange.com post (see below). Then further 
+% developed to add topsep then enumerate. Finally some defaults are set, and
+% the macro \itemseps is defined and immedately executed.
+
+\ProvidesPackage{beamerscoutsitemseps}
+
+% Fixing up spacing in itemize is really hard! 
+% I found this first patch on the interwebs for itemsep and modified it for topsep too
+% https://tex.stackexchange.com/questions/225736/latex-beamer-define-itemsep-globally#225737
+% I've further modified topsep at each item level.
+\usepackage{xpatch}
+\xpatchcmd{\itemize}
+  {\def\makelabel}
+  {%
+   \setlength\topsep{0cm}%
+   \ifnum\@itemdepth=1\relax%
+     \setlength\itemsep{\itemseps@itemsepi}% separation for first level - seems a good fit with the Scouts PPT template
+     \setlength\topsep{\itemseps@topsepi}%
+   \else%
+     \ifnum\@itemdepth=2\relax%
+       \setlength\itemsep{\itemseps@itemsepii}% separation for second level
+       \setlength\topsep{\itemseps@topsepii}%
+     \else%
+       \ifnum\@itemdepth=3\relax%
+         \setlength\itemsep{\itemseps@itemsepiii}% separation for third level
+         \setlength\topsep{\itemseps@topsepiii}%
+       \fi%
+     \fi%
+   \fi%
+   \def\makelabel
+  }
+ {}
+ {}
+
+%Now do the same for enumerate
+\xpatchcmd{\beamer@enum@}
+  {\def\makelabel}
+  {%
+   \setlength\topsep{0cm}%
+   \ifnum\@enumdepth=1\relax%
+     \setlength\itemsep{\itemseps@itemsepi}% separation for first level
+     \setlength\topsep{\itemseps@topsepi}%
+   \else%
+     \ifnum\@enumdepth=2\relax%
+       \setlength\itemsep{\itemseps@itemsepii}% separation for second level
+       \setlength\topsep{\itemseps@topsepii}%
+     \else%
+       \ifnum\@enumdepth=3\relax%
+         \setlength\itemsep{\itemseps@itemsepiii}% separation for third level
+         \setlength\topsep{\itemseps@topsepiii}%
+       \fi%
+     \fi%
+   \fi%
+   \def\makelabel
+  }
+ {}
+ {}
+
+% Set default seps for Grey Wolf's Scout Theme
+\def\itemseps@topsepi{}        \define@key{itemseps}{topsepi}[1em]{\def\itemseps@topsepi{#1}}
+%\def\itemseps@topsepii{}       \define@key{itemseps}{topsepii}[{(0.5 * (\itemseps@topsepi + \itemseps@itemsepi))}]{\def\itemseps@topsepii{#1}}
+%\def\itemseps@topsepiii{}      \define@key{itemseps}{topsepiii}[{(0.5 * (\itemseps@topsepii + \itemseps@itemsepii))}]{\def\itemseps@topsepiii{#1}}
+\def\itemseps@topsepii{}       \define@key{itemseps}{topsepii}[0.75em]{\def\itemseps@topsepii{#1}}
+\def\itemseps@topsepiii{}      \define@key{itemseps}{topsepiii}[0.5em]{\def\itemseps@topsepiii{#1}}
+\def\itemseps@itemsepi{}       \define@key{itemseps}{itemsepi}[0.6em]{\def\itemseps@itemsepi{#1}}
+\def\itemseps@itemsepii{}      \define@key{itemseps}{itemsepii}[0.6em]{\def\itemseps@itemsepii{#1}}
+\def\itemseps@itemsepiii{}     \define@key{itemseps}{itemsepiii}[0.6em]{\def\itemseps@itemsepiii{#1}}
+\def\itemseps@labelsep{}       \define@key{itemseps}{labelsep}[2mm]{\def\itemseps@labelsep{#1}}
+\def\itemseps@leftmargini{}    \define@key{itemseps}{leftmargini}[4mm]{\def\itemseps@leftmargini{#1}}
+\def\itemseps@leftmarginii{}   \define@key{itemseps}{leftmarginii}[4mm]{\def\itemseps@leftmarginii{#1}}
+\def\itemseps@leftmarginiiii{} \define@key{itemseps}{leftmarginiii}[4mm]{\def\itemseps@leftmarginiii{#1}}
+\newcommand{\itemseps}[1][topsepi,topsepii,topsepiii,itemsepi,itemsepii,itemsepiii,labelsep,leftmargini,leftmarginii,leftmarginiii]{%
+  \setkeys{itemseps}{#1}%
+  %top- and itemskip(s) need to be set as per patched command.
+  %labelsep and margins need to be set in beamer template.
+  \setbeamertemplate{itemize/enumerate body begin}{%
+    \setlength{\labelsep}{\itemseps@labelsep}%
+    \setlength{\leftmargini}{\itemseps@leftmargini}%
+    \setlength{\leftmarginii}{\itemseps@leftmarginii}%
+    \setlength{\leftmarginiii}{\itemseps@leftmarginiii}%
+  }%
+}
+%Set defaults now!
+\itemseps
+

@@ -1,0 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright 2020 Mike Jones, <dr.mike.jones@gmail.com>
+%% AKA Grey Wolf <mike.jones@mansouthscouts.org>
+%% [23rd Manchester (Birch with Fallowfield)]
+%% Scout Membership number: 12114313
+%
+% This file is part of Grey Wolf's Scouts Beamer Theme.
+%
+% Grey Wolf's Scouts Beamer Theme is free software: you can redistribute
+% it and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% Grey Wolf's Scouts Beamer Theme is distributed in the hope that it will 
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Grey Wolf's Scouts Beamer Theme.  If not, see
+% <https://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand*{\do}[1]{%
+\changecolours{#1}%
+\section{#1}
+\subsection{#1 Subsection}
+\frame[allowframebreaks]{\frametitle{#1 Content}\lipsum[1]}
+\begin{frame}{Itemize}
+\begin{example}
+\begin{itemize}
+\item First Level 1
+\begin{itemize}
+\item Second Level 1
+\item Second Level 2
+\end{itemize}
+\item First Level 3
+\item First Level 4
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}{Enumerate}
+\begin{enumerate}
+\item 1
+\item this is two
+\item three
+\end{enumerate}
+\end{frame}
+}
+\docsvlist{ScoutScouts, ScoutCubs, ScoutBeavers, ScoutExplorers, ScoutNetwork, ScoutSeaScouts, ScoutAirScouts}
