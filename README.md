@@ -1,7 +1,7 @@
 # Grey Wolf's Scouts Beamer Theme.
 By Mike Jones, <dr.mike.jones@gmail.com>  
 AKA Grey Wolf <mike.jones@mansouthscouts.org>  
-[23rd Manchester (Birch with Fallowfield)][23MCR]
+[23rd Manchester (Birch with Fallowfield)][23MCR]  
 [23MCR]: https://mansouthscouts.org.uk/our-groups/23rdManchester
 
 ## Overview
@@ -68,7 +68,7 @@ They do this in what I like to call a WYSINWYG environment.
 
 ./scouttemplate.tex
 :  This file contains content and rendering instructions to reasonably
-   recreate the [Scout Brand Centre's PowerPoint-template/POT][SBCPOT]
+   recreate the [Scout Brand Centre's PowerPoint-template/POT][SBCPOT]  
    [SBCPOT]: https://scoutsbrand.org.uk/catalogue/item/scouts-powerpoint-template
 
 ./colours.tex
@@ -79,7 +79,7 @@ They do this in what I like to call a WYSINWYG environment.
 
 ./euclid.tex
 :  This file contains a walk-through of the Euclid example from
-   [the Beamer documentation][Beamer]
+   [the Beamer documentation][Beamer]  
    [Beamer]: http://mirrors.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf
 
 ./media/
@@ -92,7 +92,7 @@ They do this in what I like to call a WYSINWYG environment.
 
 ./texmf/
 :  The texmf directory is where all the theme files are placed as per
-   the [Tex Directory Structure][TDS]
+   the [Tex Directory Structure][TDS]  
    [TDS]: https://en.wikipedia.org/wiki/TeX_Directory_Structure "TDS on wikipedia"
 
 ./README.md
@@ -178,11 +178,11 @@ They do this in what I like to call a WYSINWYG environment.
    powerful tool might be LaTeX's `multicol` environment.
 
 ./texmf/fonts/truetype/NunitoSans/nunito-sans.zip
-:  The [Nunito Sans TrueType font][NSTTF] distribution archive.
+:  The [Nunito Sans TrueType font][NSTTF] distribution archive.  
    [NSTTF]: https://fonts.google.com/specimen/Nunito+Sans
 
 ./texmf/fonts/truetype/NunitoSans/OFL.txt
-:  A local copy of [the Nunito Sans TrueType font licence][NSL]
+:  A local copy of [the Nunito Sans TrueType font licence][NSL]  
    [NSL]: https://fonts.google.com/specimen/Nunito+Sans#license
 
 ./texmf/fonts/truetype/NunitoSans/OS2v3/*
