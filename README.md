@@ -219,6 +219,14 @@ They do this in what I like to call a WYSINWYG environment.
    the borders for spacing consistency. NB there are strict branding
    rules on the spacing and use of scout logos please respect these.
 
+:  Edit (2021-02-15) Since writing this README file the Scout Brand Centre
+   has published some of the logos in a publicly accessible archive:
+   <https://docs.scoutsbrand.org.uk/logos.zip> along with the general guidelines
+   <https://docs.scoutsbrand.org.uk/guidelines.pdf>. This theme will, however,
+   continue to use the derived RGB borderless logos for technical reasons. The
+   publication of these logos is very welcome as it makes publishing this theme
+   clearer.
+
 ## Installation
 This package is designed to be installed in a standalone location or used
 via a cloud service such as overleaf.com. While it *is* possible to install
@@ -287,8 +295,9 @@ The Scout Association rebranded in 2018. Here's a blog post about that:
 <https://www.scouts.org.uk/news/2018/may/a-vibrant-new-brand-and-identity-for-the-scouts/>
 
 You can read about the specifics of the new brand here (provided you have
-access) in the [Brand Guidelines May 2018][SBCGuide].
-[SBCGuide]: https://scoutsbrand.org.uk/catalogue/category/digital/guidelines.
+access) in the [Brand Guidelines May 2018][SBCGuide]. (Edit 2021-02-15 [Publicly available version here][SBCGuide2].)
+[SBCGuide]: https://scoutsbrand.org.uk/catalogue/category/digital/guidelines
+[SBCGuide2]: https://docs.scoutsbrand.org.uk/guidelines.pdf
 
 Use of the Scout Association logos and the various section logos and
 Fleur-de-lis etc. is covered by the licensing rules in section 14 of
